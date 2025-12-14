@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect, useMemo } from 'react';
+import { useState, useEffect, useMemo, useCallback } from 'react';
 
 export interface SearchFilters {
   fromStation: string;
@@ -56,7 +56,7 @@ const mockTrainRoutes: TrainRoute[] = [
     rating: 4,
     totalComments: 156,
     satisfactionRate: 95,
-    image: "/api/placeholder/300/200"
+    image: "/hinh-anh-tau.jpg"
   },
   {
     id: 2,
@@ -74,7 +74,7 @@ const mockTrainRoutes: TrainRoute[] = [
     rating: 5,
     totalComments: 89,
     satisfactionRate: 98,
-    image: "/api/placeholder/300/200"
+    image: "/hinh-anh-tau-2.jpg"
   },
   {
     id: 3,
@@ -90,7 +90,7 @@ const mockTrainRoutes: TrainRoute[] = [
     rating: 4,
     totalComments: 234,
     satisfactionRate: 92,
-    image: "/api/placeholder/300/200"
+    image: "/hinh-anh-tau-3.jpg"
   },
   {
     id: 4,
@@ -108,7 +108,7 @@ const mockTrainRoutes: TrainRoute[] = [
     rating: 4,
     totalComments: 67,
     satisfactionRate: 89,
-    image: "/api/placeholder/300/200"
+    image: "/hinh-anh-tau-4.jpg"
   },
   {
     id: 5,
@@ -126,7 +126,7 @@ const mockTrainRoutes: TrainRoute[] = [
     rating: 5,
     totalComments: 412,
     satisfactionRate: 97,
-    image: "/api/placeholder/300/200"
+    image: "/hinh-anh-tau-5.jpg"
   }
 ];
 
@@ -304,12 +304,12 @@ export const useSearchAndFilter = () => {
     setErrors([]);
   };
 
-  const updateFilter = (key: keyof SearchFilters, value: any) => {
+  const updateFilter = useCallback((key: keyof SearchFilters, value: any) => {
     setFilters(prev => ({
       ...prev,
       [key]: value
     }));
-  };
+  }, []);
 
   const getStatistics = useMemo(() => {
     const routes = filteredAndSortedRoutes;
