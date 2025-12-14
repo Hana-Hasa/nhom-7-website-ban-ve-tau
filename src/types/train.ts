@@ -91,3 +91,57 @@ export interface TrainStatistics {
     occupancyRate: number; // Tỷ lệ lấp đầy (%)
     popularRoute: boolean;
 }
+
+// Order Management Types
+export type OrderStatus = 'Chờ xử lý' | 'Đã xác nhận' | 'Hoàn thành' | 'Đã hủy';
+export type PaymentStatus = 'Chưa thanh toán' | 'Đã thanh toán' | 'Hoàn tiền';
+export type PaymentMethod = 'Thẻ tín dụng' | 'Chuyển khoản' | 'Ví điện tử' | 'Tiền mặt';
+
+export interface Customer {
+    id: string;
+    fullName: string;
+    email: string;
+    phone: string;
+    idNumber?: string; // CCCD/CMND
+}
+
+export interface Ticket {
+    id: string;
+    orderId: string;
+    passengerName: string;
+    passengerIdNumber: string;
+    carriageNumber: number;
+    seatNumber: string;
+    ticketType: string; // Người lớn, Trẻ em, Sinh viên
+    price: number;
+    qrCode?: string; // QR code cho vé điện tử
+}
+
+export interface Order {
+    id: string;
+    orderCode: string; // Mã đơn hàng (DH2025001)
+    customer: Customer;
+    trainId: string;
+    trainCode: string; // Denormalized for display
+    trainName: string;
+    departureTime: string;
+    tickets: Ticket[];
+    totalAmount: number;
+    paymentMethod: PaymentMethod;
+    paymentStatus: PaymentStatus;
+    orderStatus: OrderStatus;
+    createdAt: string;
+    confirmedAt?: string;
+    cancelledAt?: string;
+    cancelReason?: string;
+    notes?: string;
+}
+
+export interface OrderFilters {
+    searchKeyword?: string; // Search by order code, customer name
+    orderStatus?: OrderStatus;
+    paymentStatus?: PaymentStatus;
+    startDate?: string; // YYYY-MM-DD
+    endDate?: string; // YYYY-MM-DD
+    trainId?: string;
+}
