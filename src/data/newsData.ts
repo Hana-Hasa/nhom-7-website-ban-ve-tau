@@ -1,4 +1,6 @@
 // Mock data for news articles
+export type NewsStatus = 'Nháp' | 'Đã xuất bản' | 'Ẩn';
+
 export interface NewsArticle {
     id: number;
     title: string;
@@ -8,6 +10,11 @@ export interface NewsArticle {
     date: string;
     category: string;
     author: string;
+    tags: string[];
+    status: NewsStatus;
+    views: number;
+    createdAt: string;
+    updatedAt: string;
 }
 
 const newsArticles: NewsArticle[] = [
@@ -25,7 +32,12 @@ const newsArticles: NewsArticle[] = [
         image: "/tau-moi-2025.jpg",
         date: "2025-12-10",
         category: "Tin tức",
-        author: "Nguyễn Văn An"
+        author: "Nguyễn Văn An",
+        tags: ["tàu cao tốc", "đường sắt", "hạ tầng", "giao thông"],
+        status: "Đã xuất bản",
+        views: 15420,
+        createdAt: "2025-12-10T08:00:00+07:00",
+        updatedAt: "2025-12-10T08:00:00+07:00"
     },
     {
         id: 2,
@@ -46,7 +58,12 @@ const newsArticles: NewsArticle[] = [
         image: "/khuyen-mai-ve-tau.jpg",
         date: "2025-12-08",
         category: "Khuyến mãi",
-        author: "Trần Thị Bình"
+        author: "Trần Thị Bình",
+        tags: ["khuyến mãi", "giảm giá", "tết", "ưu đãi"],
+        status: "Đã xuất bản",
+        views: 12890,
+        createdAt: "2025-12-08T09:30:00+07:00",
+        updatedAt: "2025-12-08T09:30:00+07:00"
     },
     {
         id: 3,
@@ -72,7 +89,12 @@ const newsArticles: NewsArticle[] = [
         image: "/duong-sat-thong-minh.jpg",
         date: "2025-12-05",
         category: "Hướng dẫn",
-        author: "Lê Minh Châu"
+        author: "Lê Minh Châu",
+        tags: ["hướng dẫn", "đặt vé online", "mua vé"],
+        status: "Đã xuất bản",
+        views: 9823,
+        createdAt: "2025-12-05T14:15:00+07:00",
+        updatedAt: "2025-12-05T14:15:00+07:00"
     },
     {
         id: 4,
@@ -98,7 +120,12 @@ const newsArticles: NewsArticle[] = [
         image: "/ve-tham-quan.jpg",
         date: "2025-12-03",
         category: "Du lịch",
-        author: "Phạm Hoàng Dũng"
+        author: "Phạm Hoàng Dũng",
+        tags: ["du lịch", "điểm đến", "tàu hỏa", "phong cảnh"],
+        status: "Đã xuất bản",
+        views: 11234,
+        createdAt: "2025-12-03T10:00:00+07:00",
+        updatedAt: "2025-12-03T10:00:00+07:00"
     },
     {
         id: 5,
@@ -119,7 +146,12 @@ const newsArticles: NewsArticle[] = [
         image: "/tau-noi-that.jpg",
         date: "2025-12-01",
         category: "Công nghệ",
-        author: "Võ Thị Trang"
+        author: "Võ Thị Trang",
+        tags: ["công nghệ", "AI", "đặt vé", "thông minh"],
+        status: "Đã xuất bản",
+        views: 8956,
+        createdAt: "2025-12-01T11:30:00+07:00",
+        updatedAt: "2025-12-01T11:30:00+07:00"
     },
     {
         id: 6,
@@ -140,7 +172,12 @@ const newsArticles: NewsArticle[] = [
         image: "/ve-tau-viet.jpg",
         date: "2025-11-28",
         category: "Chính sách",
-        author: "Đỗ Văn Bình"
+        author: "Đỗ Văn Bình",
+        tags: ["chính sách", "hoàn vé", "quy định"],
+        status: "Đã xuất bản",
+        views: 7654,
+        createdAt: "2025-11-28T13:00:00+07:00",
+        updatedAt: "2025-11-28T13:00:00+07:00"
     },
     {
         id: 7,
@@ -162,7 +199,12 @@ const newsArticles: NewsArticle[] = [
         image: "/tau-se1.jpg",
         date: "2025-11-25",
         category: "Tin tức",
-        author: "Nguyễn Thị Mai"
+        author: "Nguyễn Thị Mai",
+        tags: ["tin tức", "ga Sài Gòn", "cải tạo", "hiện đại hóa"],
+        status: "Đã xuất bản",
+        views: 10543,
+        createdAt: "2025-11-25T08:45:00+07:00",
+        updatedAt: "2025-11-25T08:45:00+07:00"
     },
     {
         id: 8,
@@ -182,7 +224,12 @@ const newsArticles: NewsArticle[] = [
         image: "/ve-tet-2025.jpg",
         date: "2025-11-22",
         category: "Tin tức",
-        author: "Trần Văn Công"
+        author: "Trần Văn Công",
+        tags: ["tin tức", "tết", "vé tàu", "nhu cầu cao"],
+        status: "Đã xuất bản",
+        views: 13890,
+        createdAt: "2025-11-22T09:20:00+07:00",
+        updatedAt: "2025-11-22T09:20:00+07:00"
     },
     {
         id: 9,
@@ -204,7 +251,12 @@ const newsArticles: NewsArticle[] = [
         image: "/le-hoi-tren-tau.jpg",
         date: "2025-11-20",
         category: "Dịch vụ",
-        author: "Lê Thị Hương"
+        author: "Lê Thị Hương",
+        tags: ["dịch vụ", "hạng thương gia", "cao cấp"],
+        status: "Đã xuất bản",
+        views: 6789,
+        createdAt: "2025-11-20T15:00:00+07:00",
+        updatedAt: "2025-11-20T15:00:00+07:00"
     },
     {
         id: 10,
@@ -225,7 +277,12 @@ const newsArticles: NewsArticle[] = [
         image: "/tau-se3.jpg",
         date: "2025-11-18",
         category: "An ninh",
-        author: "Phạm Minh Tuấn"
+        author: "Phạm Minh Tuấn",
+        tags: ["an ninh", "an toàn", "công nghệ", "AI"],
+        status: "Đã xuất bản",
+        views: 5432,
+        createdAt: "2025-11-18T10:30:00+07:00",
+        updatedAt: "2025-11-18T10:30:00+07:00"
     },
     {
         id: 11,
@@ -245,7 +302,12 @@ const newsArticles: NewsArticle[] = [
         image: "/khuyen-mai-ve-tau-2.jpg",
         date: "2025-11-15",
         category: "Khuyến mãi",
-        author: "Ngô Thị Lan"
+        author: "Ngô Thị Lan",
+        tags: ["khuyến mãi", "khách hàng thân thiết", "tích điểm"],
+        status: "Đã xuất bản",
+        views: 9234,
+        createdAt: "2025-11-15T14:00:00+07:00",
+        updatedAt: "2025-11-15T14:00:00+07:00"
     },
     {
         id: 12,
@@ -267,7 +329,12 @@ const newsArticles: NewsArticle[] = [
         image: "/hinh-anh-tau.jpg",
         date: "2025-11-12",
         category: "Du lịch",
-        author: "Bùi Văn Hùng"
+        author: "Bùi Văn Hùng",
+        tags: ["du lịch", "giới trẻ", "xu hướng"],
+        status: "Đã xuất bản",
+        views: 11567,
+        createdAt: "2025-11-12T16:30:00+07:00",
+        updatedAt: "2025-11-12T16:30:00+07:00"
     },
     {
         id: 13,
@@ -289,7 +356,12 @@ const newsArticles: NewsArticle[] = [
         image: "/tau-nha-hang.jpg",
         date: "2025-11-10",
         category: "Dịch vụ",
-        author: "Hoàng Thị Thu"
+        author: "Hoàng Thị Thu",
+        tags: ["dịch vụ", "phòng chờ VIP", "Đà Nẵng"],
+        status: "Đã xuất bản",
+        views: 6543,
+        createdAt: "2025-11-10T09:00:00+07:00",
+        updatedAt: "2025-11-10T09:00:00+07:00"
     },
     {
         id: 14,
@@ -310,7 +382,12 @@ const newsArticles: NewsArticle[] = [
         image: "/hinh-anh-tau-2.jpg",
         date: "2025-11-08",
         category: "Đối tác",
-        author: "Trịnh Văn Long"
+        author: "Trịnh Văn Long",
+        tags: ["đối tác", "Grab", "dịch vụ đưa đón"],
+        status: "Đã xuất bản",
+        views: 8123,
+        createdAt: "2025-11-08T11:45:00+07:00",
+        updatedAt: "2025-11-08T11:45:00+07:00"
     },
     {
         id: 15,
@@ -332,7 +409,12 @@ const newsArticles: NewsArticle[] = [
         image: "/hinh-anh-tau-3.jpg",
         date: "2025-11-05",
         category: "Lịch sử",
-        author: "Đặng Thị Hà"
+        author: "Đặng Thị Hà",
+        tags: ["lịch sử", "đường sắt Việt Nam", "100 năm"],
+        status: "Đã xuất bản",
+        views: 10876,
+        createdAt: "2025-11-05T13:20:00+07:00",
+        updatedAt: "2025-11-05T13:20:00+07:00"
     },
     {
         id: 16,
@@ -354,7 +436,12 @@ const newsArticles: NewsArticle[] = [
         image: "/khuyen-mai-ve-tau-3.jpg",
         date: "2025-11-03",
         category: "Mẹo hay",
-        author: "Vũ Thị Nga"
+        author: "Vũ Thị Nga",
+        tags: ["mẹo hay", "tiết kiệm", "sinh viên"],
+        status: "Đã xuất bản",
+        views: 14321,
+        createdAt: "2025-11-03T10:15:00+07:00",
+        updatedAt: "2025-11-03T10:15:00+07:00"
     },
     {
         id: 17,
@@ -375,7 +462,12 @@ const newsArticles: NewsArticle[] = [
         image: "/hinh-anh-tau-4.jpg",
         date: "2025-11-01",
         category: "Quốc tế",
-        author: "Lý Văn Minh"
+        author: "Lý Văn Minh",
+        tags: ["quốc tế", "đường sắt xuyên Á", "ASEAN"],
+        status: "Đã xuất bản",
+        views: 9876,
+        createdAt: "2025-11-01T08:30:00+07:00",
+        updatedAt: "2025-11-01T08:30:00+07:00"
     },
     {
         id: 18,
@@ -395,7 +487,12 @@ const newsArticles: NewsArticle[] = [
         image: "/hinh-anh-tau-5.jpg",
         date: "2025-10-28",
         category: "Môi trường",
-        author: "Phan Thị Loan"
+        author: "Phan Thị Loan",
+        tags: ["môi trường", "năng lượng sạch", "bền vững"],
+        status: "Đã xuất bản",
+        views: 7234,
+        createdAt: "2025-10-28T15:45:00+07:00",
+        updatedAt: "2025-10-28T15:45:00+07:00"
     },
     {
         id: 19,
@@ -417,7 +514,12 @@ const newsArticles: NewsArticle[] = [
         image: "/banner-uu-dai-ve-tau.jpg",
         date: "2025-10-25",
         category: "Công nghệ",
-        author: "Nguyễn Văn Sơn"
+        author: "Nguyễn Văn Sơn",
+        tags: ["công nghệ", "ứng dụng mobile", "tính năng mới"],
+        status: "Đã xuất bản",
+        views: 12543,
+        createdAt: "2025-10-25T12:00:00+07:00",
+        updatedAt: "2025-10-25T12:00:00+07:00"
     },
     {
         id: 20,
@@ -439,7 +541,12 @@ const newsArticles: NewsArticle[] = [
         image: "/do-an-tau-hoa.jpg",
         date: "2025-10-22",
         category: "Ẩm thực",
-        author: "Trương Thị Kim"
+        author: "Trương Thị Kim",
+        tags: ["ẩm thực", "đồ ăn trên tàu", "thực đơn"],
+        status: "Đã xuất bản",
+        views: 8654,
+        createdAt: "2025-10-22T14:30:00+07:00",
+        updatedAt: "2025-10-22T14:30:00+07:00"
     }
 ];
 
