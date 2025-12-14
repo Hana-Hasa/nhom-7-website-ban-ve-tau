@@ -112,11 +112,11 @@ export default function Home() {
       <Header />
 
       <main className="flex-grow">
-        {/* Search Section */}
-        <SearchSection />
-
         {/* Hero Slider */}
         <Slider />
+
+        {/* Search Section */}
+        <SearchSection />
 
         {/* Sản phẩm xu hướng */}
         <ProductList
