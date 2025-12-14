@@ -22,7 +22,7 @@ const newsArticles: NewsArticle[] = [
     
     <h3>Lợi ích kinh tế - xã hội</h3>
     <p>Chuyên gia kinh tế cho rằng tuyến tàu cao tốc này sẽ thúc đẩy mạnh mẽ sự phát triển kinh tế của vùng đồng bằng Bắc Bộ, tạo điều kiện thuận lợi cho việc luân chuyển hàng hóa và lao động giữa hai thành phố lớn.</p>`,
-        image: "/api/placeholder/800/500",
+        image: "/tau-moi-2025.jpg",
         date: "2025-12-10",
         category: "Tin tức",
         author: "Nguyễn Văn An"
@@ -43,7 +43,7 @@ const newsArticles: NewsArticle[] = [
     </ul>
     
     <p>Đặc biệt, khách hàng đặt vé sớm trước 30 ngày sẽ được tặng thêm voucher ăn uống trị giá 100.000đ và ưu tiên chọn chỗ ngồi.</p>`,
-        image: "/api/placeholder/800/500",
+        image: "/khuyen-mai-ve-tau.jpg",
         date: "2025-12-08",
         category: "Khuyến mãi",
         author: "Trần Thị Bình"
@@ -69,7 +69,7 @@ const newsArticles: NewsArticle[] = [
     
     <h3>Bước 5: Thanh toán</h3>
     <p>Chọn phương thức thanh toán phù hợp và hoàn tất giao dịch.</p>`,
-        image: "/api/placeholder/800/500",
+        image: "/duong-sat-thong-minh.jpg",
         date: "2025-12-05",
         category: "Hướng dẫn",
         author: "Lê Minh Châu"
@@ -95,7 +95,7 @@ const newsArticles: NewsArticle[] = [
     
     <h3>5. Vinh - Đông Hà</h3>
     <p>Xuyên qua vùng đất lịch sử với thiên nhiên kỳ vĩ.</p>`,
-        image: "/api/placeholder/800/500",
+        image: "/ve-tham-quan.jpg",
         date: "2025-12-03",
         category: "Du lịch",
         author: "Phạm Hoàng Dũng"
@@ -116,7 +116,7 @@ const newsArticles: NewsArticle[] = [
     </ul>
     
     <p>Hệ thống đã được thử nghiệm và cho kết quả tích cực với độ chính xác lên đến 95%.</p>`,
-        image: "/api/placeholder/800/500",
+        image: "/tau-noi-that.jpg",
         date: "2025-12-01",
         category: "Công nghệ",
         author: "Võ Thị Trang"
@@ -137,7 +137,7 @@ const newsArticles: NewsArticle[] = [
     </ul>
     
     <p>Quy trình hoàn tiền được thực hiện trong vòng 3-5 ngày làm việc.</p>`,
-        image: "/api/placeholder/800/500",
+        image: "/ve-tau-viet.jpg",
         date: "2025-11-28",
         category: "Chính sách",
         author: "Đỗ Văn Bình"
@@ -159,7 +159,7 @@ const newsArticles: NewsArticle[] = [
     </ul>
     
     <p>Dự kiến hoàn thành vào quý 2/2026.</p>`,
-        image: "/api/placeholder/800/500",
+        image: "/tau-se1.jpg",
         date: "2025-11-25",
         category: "Tin tức",
         author: "Nguyễn Thị Mai"
@@ -179,7 +179,7 @@ const newsArticles: NewsArticle[] = [
     </ul>
     
     <p>Ngành đường sắt đã bố trí thêm 50 đoàn tàu để đáp ứng nhu cầu cao điểm.</p>`,
-        image: "/api/placeholder/800/500",
+        image: "/ve-tet-2025.jpg",
         date: "2025-11-22",
         category: "Tin tức",
         author: "Trần Văn Công"
@@ -201,7 +201,7 @@ const newsArticles: NewsArticle[] = [
     </ul>
     
     <p>Giá vé chỉ từ 3.5 triệu đồng cho hành trình 30 tiếng.</p>`,
-        image: "/api/placeholder/800/500",
+        image: "/le-hoi-tren-tau.jpg",
         date: "2025-11-20",
         category: "Dịch vụ",
         author: "Lê Thị Hương"
@@ -222,7 +222,7 @@ const newsArticles: NewsArticle[] = [
     </ul>
     
     <p>Hệ thống hoạt động 24/7 và được giám sát bởi đội ngũ chuyên nghiệp.</p>`,
-        image: "/api/placeholder/800/500",
+        image: "/tau-se3.jpg",
         date: "2025-11-18",
         category: "An ninh",
         author: "Phạm Minh Tuấn"
@@ -242,7 +242,7 @@ const newsArticles: NewsArticle[] = [
     </ul>
     
     <p>Thành viên còn được ưu tiên đặt chỗ và nhận quà tặng sinh nhật đặc biệt.</p>`,
-        image: "/api/placeholder/800/500",
+        image: "/khuyen-mai-ve-tau-2.jpg",
         date: "2025-11-15",
         category: "Khuyến mãi",
         author: "Ngô Thị Lan"
@@ -264,7 +264,7 @@ const newsArticles: NewsArticle[] = [
     </ul>
     
     <p>Nhiều bạn trẻ còn tổ chức các chuyến đi nhóm bằng tàu để tăng sự gắn kết.</p>`,
-        image: "/api/placeholder/800/500",
+        image: "/hinh-anh-tau.jpg",
         date: "2025-11-12",
         category: "Du lịch",
         author: "Bùi Văn Hùng"
@@ -286,7 +286,7 @@ const newsArticles: NewsArticle[] = [
     </ul>
     
     <p>Vé vào phòng chờ chỉ 200.000đ hoặc miễn phí cho khách hàng thương gia.</p>`,
-        image: "/api/placeholder/800/500",
+        image: "/tau-nha-hang.jpg",
         date: "2025-11-10",
         category: "Dịch vụ",
         author: "Hoàng Thị Thu"
@@ -307,7 +307,7 @@ const newsArticles: NewsArticle[] = [
     </ul>
     
     <p>Dịch vụ có mặt tại 15 ga tàu lớn trên toàn quốc.</p>`,
-        image: "/api/placeholder/800/500",
+        image: "/hinh-anh-tau-2.jpg",
         date: "2025-11-08",
         category: "Đối tác",
         author: "Trịnh Văn Long"
@@ -329,7 +329,7 @@ const newsArticles: NewsArticle[] = [
     </ul>
     
     <p>Hiện nay, mạng lưới đường sắt Việt Nam dài hơn 3000km phục vụ hàng triệu lượt khách mỗi năm.</p>`,
-        image: "/api/placeholder/800/500",
+        image: "/hinh-anh-tau-3.jpg",
         date: "2025-11-05",
         category: "Lịch sử",
         author: "Đặng Thị Hà"
@@ -351,7 +351,7 @@ const newsArticles: NewsArticle[] = [
     </ul>
     
     <p>Áp dụng đồng thời nhiều ưu đãi có thể giúp bạn tiết kiệm đến 50% giá vé.</p>`,
-        image: "/api/placeholder/800/500",
+        image: "/khuyen-mai-ve-tau-3.jpg",
         date: "2025-11-03",
         category: "Mẹo hay",
         author: "Vũ Thị Nga"
@@ -372,7 +372,7 @@ const newsArticles: NewsArticle[] = [
     </ul>
     
     <p>Dự kiến hoàn thành vào năm 2030.</p>`,
-        image: "/api/placeholder/800/500",
+        image: "/hinh-anh-tau-4.jpg",
         date: "2025-11-01",
         category: "Quốc tế",
         author: "Lý Văn Minh"
@@ -392,7 +392,7 @@ const newsArticles: NewsArticle[] = [
     </ul>
     
     <p>Dự án sẽ giảm 40% lượng khí thải carbon của ngành.</p>`,
-        image: "/api/placeholder/800/500",
+        image: "/hinh-anh-tau-5.jpg",
         date: "2025-10-28",
         category: "Môi trường",
         author: "Phan Thị Loan"
@@ -414,7 +414,7 @@ const newsArticles: NewsArticle[] = [
     </ul>
     
     <p>Tải miễn phí trên App Store và Google Play.</p>`,
-        image: "/api/placeholder/800/500",
+        image: "/banner-uu-dai-ve-tau.jpg",
         date: "2025-10-25",
         category: "Công nghệ",
         author: "Nguyễn Văn Sơn"
@@ -436,7 +436,7 @@ const newsArticles: NewsArticle[] = [
     </ul>
     
     <p>Tất cả món ăn đều được chế biến tươi ngay trên tàu.</p>`,
-        image: "/api/placeholder/800/500",
+        image: "/do-an-tau-hoa.jpg",
         date: "2025-10-22",
         category: "Ẩm thực",
         author: "Trương Thị Kim"
@@ -472,3 +472,4 @@ export function getNewsByPage(page: number = 1, itemsPerPage: number = 8): {
         currentPage: page
     };
 }
+

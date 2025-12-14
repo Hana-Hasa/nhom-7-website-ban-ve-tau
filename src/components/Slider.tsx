@@ -15,28 +15,28 @@ const slides: Slide[] = [
     id: 1,
     title: 'Giảm giá SÀN 30%',
     subtitle: 'Chương trình khuyến mãi đặc biệt nhân dịp lễ 30/4',
-    image: '/api/placeholder/1200/400',
+    image: '/banner-giam-gia-ve-tau.jpg',
     type: 'khuyen-mai'
   },
   {
     id: 2,
     title: 'FLASH SALE GIỜ VÀNG',
     subtitle: 'Giảm đến 50% cho các tuyến tàu TP.HCM - Hà Nội',
-    image: '/api/placeholder/1200/400',
+    image: '/flash-sale-dac-biet.jpg',
     type: 'flash-sale'
   },
   {
     id: 3,
     title: 'Tết Trung Thu - Về Quê Thăm Bố Mẹ',
     subtitle: 'Ưu đãi đặc biệt cho đoàn khách gia đình',
-    image: '/api/placeholder/1200/400',
+    image: '/trung-thu-bg.jpg',
     type: 'trung-thu'
   },
   {
     id: 4,
     title: 'Chúc Mừng Năm Mới 2025',
     subtitle: 'Mua vé tàu sớm nhận quà hấp dẫn',
-    image: '/api/placeholder/1200/400',
+    image: '/nam-moi-bg.jpg',
     type: 'nam-moi'
   }
 ];
@@ -71,9 +71,8 @@ export default function Slider() {
         {slides.map((slide, index) => (
           <div
             key={slide.id}
-            className={`absolute inset-0 transition-opacity duration-1000 ${
-              index === currentSlide ? 'opacity-100' : 'opacity-0'
-            }`}
+            className={`absolute inset-0 transition-opacity duration-1000 ${index === currentSlide ? 'opacity-100' : 'opacity-0'
+              }`}
           >
             <div className="relative w-full h-full">
               <img
@@ -84,9 +83,8 @@ export default function Slider() {
               <div className="absolute inset-0 bg-gradient-to-r from-black/70 to-transparent flex items-center">
                 <div className="container mx-auto px-4">
                   <div className="max-w-2xl">
-                    <span className={`inline-block px-4 py-2 rounded-full text-white text-sm font-semibold mb-4 ${
-                      slide.type === 'flash-sale' ? 'bg-do' : 'bg-xanh-duongdam'
-                    }`}>
+                    <span className={`inline-block px-4 py-2 rounded-full text-white text-sm font-semibold mb-4 ${slide.type === 'flash-sale' ? 'bg-do' : 'bg-xanh-duongdam'
+                      }`}>
                       {slide.type === 'khuyen-mai' && 'KHUYẾN MÃI'}
                       {slide.type === 'flash-sale' && 'FLASH SALE'}
                       {slide.type === 'trung-thu' && 'TRUNG THU'}
@@ -135,11 +133,10 @@ export default function Slider() {
           <button
             key={index}
             onClick={() => goToSlide(index)}
-            className={`w-3 h-3 rounded-full transition-all ${
-              index === currentSlide
-                ? 'bg-white w-8'
-                : 'bg-white/50 hover:bg-white/75'
-            }`}
+            className={`w-3 h-3 rounded-full transition-all ${index === currentSlide
+              ? 'bg-white w-8'
+              : 'bg-white/50 hover:bg-white/75'
+              }`}
             aria-label={`Go to slide ${index + 1}`}
           />
         ))}

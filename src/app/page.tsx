@@ -15,7 +15,7 @@ const trendingProducts = [
     originalPrice: 1850000,
     discountedPrice: 1295000,
     discountPercent: 30,
-    image: "/api/placeholder/300/200",
+    image: "/tau-se1.jpg",
     rating: 4,
     totalComments: 156,
     satisfactionRate: 95
@@ -27,7 +27,7 @@ const trendingProducts = [
     originalPrice: 980000,
     discountedPrice: 784000,
     discountPercent: 20,
-    image: "/api/placeholder/300/200",
+    image: "/tau-se3.jpg",
     rating: 5,
     totalComments: 89,
     satisfactionRate: 98
@@ -37,7 +37,7 @@ const trendingProducts = [
     name: "Tàu SP1 - Hà Nội → Lào Cai",
     route: "Ga Hà Nội - Ga Lào Cai",
     originalPrice: 650000,
-    image: "/api/placeholder/300/200",
+    image: "/hinh-anh-tau.jpg",
     rating: 4,
     totalComments: 234,
     satisfactionRate: 92
@@ -49,7 +49,7 @@ const trendingProducts = [
     originalPrice: 520000,
     discountedPrice: 364000,
     discountPercent: 30,
-    image: "/api/placeholder/300/200",
+    image: "/hinh-anh-tau-2.jpg",
     rating: 4,
     totalComments: 67,
     satisfactionRate: 89
@@ -65,7 +65,7 @@ const bestSellingProducts = [
     originalPrice: 450000,
     discountedPrice: 360000,
     discountPercent: 20,
-    image: "/api/placeholder/300/200",
+    image: "/hinh-anh-tau-3.jpg",
     rating: 5,
     totalComments: 412,
     satisfactionRate: 97
@@ -77,7 +77,7 @@ const bestSellingProducts = [
     originalPrice: 280000,
     discountedPrice: 224000,
     discountPercent: 20,
-    image: "/api/placeholder/300/200",
+    image: "/hinh-anh-tau-4.jpg",
     rating: 4,
     totalComments: 198,
     satisfactionRate: 91
@@ -87,7 +87,7 @@ const bestSellingProducts = [
     name: "Tâu SQN2 - Hà Nội → Quảng Ninh",
     route: "Ga Hà Nội - Ga Hạ Long",
     originalPrice: 380000,
-    image: "/api/placeholder/300/200",
+    image: "/hinh-anh-tau-5.jpg",
     rating: 5,
     totalComments: 567,
     satisfactionRate: 96
@@ -99,7 +99,7 @@ const bestSellingProducts = [
     originalPrice: 180000,
     discountedPrice: 144000,
     discountPercent: 20,
-    image: "/api/placeholder/300/200",
+    image: "/tau-noi-that.jpg",
     rating: 4,
     totalComments: 289,
     satisfactionRate: 88
