@@ -1,28 +1,49 @@
+/**
+ * TRAIN CONTEXT - QUẢN LÝ CHUYẾN TÀU VÀ ACTIVITY LOGS
+ * Context quản lý:
+ * - Danh sách chuyến tàu (trains data)
+ * - Activity logs (lịch sử thao tác admin)
+ * - Sync với localStorage để persist data
+ */
+
 'use client';
 
 import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
 import { Train, ActivityLog } from '@/types/train';
 import { initialTrainData } from '@/data/trainData';
 
+/**
+ * Interface TrainContextType - API của Train Context
+ */
 interface TrainContextType {
-    trains: Train[];
-    activityLogs: ActivityLog[];
-    setTrains: (trains: Train[]) => void;
-    addActivityLog: (log: Omit<ActivityLog, 'id' | 'timestamp'>) => void;
-    isLoading: boolean;
+    trains: Train[]; // Danh sách chuyến tàu
+    activityLogs: ActivityLog[]; // Lịch sử hoạt động (CRUD logs)
+    setTrains: (trains: Train[]) => void; // Cập nhật trains và lưu localStorage
+    addActivityLog: (log: Omit<ActivityLog, 'id' | 'timestamp'>) => void; // Thêm log mới
+    isLoading: boolean; // Loading state khi load từ localStorage
 }
 
+// Tạo Context
 const TrainContext = createContext<TrainContextType | undefined>(undefined);
 
+// localStorage keys
 const STORAGE_KEY = 'admin_trains_data';
 const LOGS_KEY = 'admin_activity_logs';
 
+/**
+ * TrainProvider Component
+ * Provider bao bọc app để cung cấp train state và activity logs
+ */
 export function TrainProvider({ children }: { children: ReactNode }) {
     const [trains, setTrainsState] = useState<Train[]>([]);
     const [activityLogs, setActivityLogs] = useState<ActivityLog[]>([]);
     const [isLoading, setIsLoading] = useState(true);
 
-    // Load data from localStorage on mount
+    /**
+     * useEffect: Load trains và logs từ localStorage khi mount
+     * - Nếu có data trong localStorage: load lên
+     * - Nếu chưa có: khởi tạo với initialTrainData (mock data)
+     */
     useEffect(() => {
         try {
             const storedTrains = localStorage.getItem(STORAGE_KEY);
@@ -49,7 +70,10 @@ export function TrainProvider({ children }: { children: ReactNode }) {
         }
     }, []);
 
-    // Save trains to localStorage whenever it changes
+    /**
+     * setTrains - Cập nhật trains và tự động lưu vào localStorage
+     * Dùng function này thay vì setTrainsState trực tiếp để đảm bảo sync
+     */
     const setTrains = (newTrains: Train[]) => {
         setTrainsState(newTrains);
         try {
@@ -59,7 +83,12 @@ export function TrainProvider({ children }: { children: ReactNode }) {
         }
     };
 
-    // Add activity log
+    /**
+     * addActivityLog - Thêm log mới vào activity logs
+     * - Tự động generate ID và timestamp
+     * - Lưu vào localStorage
+     * - Log hiển thị ở trang chi tiết chuyến tàu (tab Lịch sử)
+     */
     const addActivityLog = (log: Omit<ActivityLog, 'id' | 'timestamp'>) => {
         const newLog: ActivityLog = {
             ...log,
@@ -67,6 +96,7 @@ export function TrainProvider({ children }: { children: ReactNode }) {
             timestamp: new Date().toISOString(),
         };
 
+        // Thêm log mới vào đầu mảng (newest first)
         const updatedLogs = [newLog, ...activityLogs];
         setActivityLogs(updatedLogs);
 
@@ -92,6 +122,11 @@ export function TrainProvider({ children }: { children: ReactNode }) {
     );
 }
 
+/**
+ * Custom hook useTrainContext
+ * Dùng để access train context từ bất kỳ component nào
+ * Throw error nếu dùng ngoài TrainProvider
+ */
 export function useTrainContext() {
     const context = useContext(TrainContext);
     if (context === undefined) {

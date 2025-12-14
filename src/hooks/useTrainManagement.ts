@@ -1,3 +1,15 @@
+/**
+ * HOOK: useTrainManagement
+ * Hook quản lý chuyến tàu với đầy đủ CRUD operations:
+ * - Add, Update, Delete trains
+ * - Add carriage, Disable seat
+ * - Filter trains (search, route, status, date)
+ * - Toast notifications + Activity logging
+ * 
+ * @return { trains, getTrainById, addTrain, updateTrain, deleteTrain,
+ *          addCarriage, disableSeat, filterTrains, availableRoutes, toast }
+ */
+
 'use client';
 
 import { useState, useCallback, useMemo } from 'react';

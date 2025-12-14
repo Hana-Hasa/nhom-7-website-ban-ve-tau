@@ -1,3 +1,17 @@
+/**
+ * HOOK: useOrderManagement
+ * Hook quản lý đơn hàng:
+ * - Get order by ID/code
+ * - Confirm, Cancel order
+ * - Print ticket (mock PDF)
+ * - Filter orders (search, status, payment, date, train)
+ * - Statistics (total, pending, confirmed, completed, cancelled, revenue)
+ * - Toast notifications + Activity logging
+ * 
+ * @return { orders, getOrderById, confirmOrder, cancelOrder, printTicket,
+ *           filterOrders, stats, toast }
+ */
+
 'use client';
 
 import { useState, useCallback, useMemo } from 'react';

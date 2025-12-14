@@ -1,3 +1,16 @@
+/**
+ * HOOK: useSearchAndFilter
+ * Hook tìm kiếm và lọc chuyến tàu cho trang search:
+ * - Filters: stations, date, carriage types, price range, time slots, carriers, travel time
+ * - Sort: price, departure time, rating
+ * - Search history (5 lần gần nhất)
+ * - Statistics: totalRoutes, min/max price, earliest/latest time
+ * - Validation: ga đi và ga đến phải có đủ
+ * 
+ * @return { filters, sortBy, filteredAndSortedRoutes, statistics,
+ *          handleSearch, clearFilters, updateFilter, stations, sortOptions, ... }
+ */
+
 'use client';
 
 import { useState, useEffect, useMemo, useCallback } from 'react';
