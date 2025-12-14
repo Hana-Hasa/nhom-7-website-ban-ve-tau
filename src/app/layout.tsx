@@ -16,6 +16,11 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   title: "Vé Tàu Việt - Mua vé tàu lửa trực tuyến",
   description: "Hệ thống bán vé tàu lửa trực tuyến hàng đầu Việt Nam. Đặt vé nhanh chóng, tiện lợi với nhiều ưu đãi hấp dẫn.",
+  icons: {
+    icon: '/logo-cong-ty.png',
+    shortcut: '/logo-cong-ty.png',
+    apple: '/logo-cong-ty.png',
+  },
 };
 
 export default function RootLayout({

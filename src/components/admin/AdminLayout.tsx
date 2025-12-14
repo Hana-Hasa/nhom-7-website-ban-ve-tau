@@ -1,6 +1,7 @@
 'use client';
 
 import Link from 'next/link';
+import Image from 'next/image';
 import { usePathname } from 'next/navigation';
 import { ReactNode } from 'react';
 
@@ -40,8 +41,17 @@ export default function AdminLayout({ children }: AdminLayoutProps) {
             <header className="bg-white shadow-sm border-b border-gray-200 sticky top-0 z-10">
                 <div className="flex items-center justify-between px-6 py-4">
                     <div className="flex items-center gap-4">
-                        <Link href="/admin" className="text-xl font-bold text-blue-600">
-                            🎫 Admin Panel
+                        <Link href="/admin" className="flex items-center gap-2">
+                            <div className="relative w-8 h-8">
+                                <Image
+                                    src="/logo-cong-ty.png"
+                                    alt="Vé Tàu Việt Logo"
+                                    width={32}
+                                    height={32}
+                                    className="object-contain"
+                                />
+                            </div>
+                            <span className="text-xl font-bold text-blue-600">Admin Panel</span>
                         </Link>
                         <span className="text-gray-400">|</span>
                         <span className="text-gray-600">Website Bán Vé Tàu</span>
@@ -73,8 +83,8 @@ export default function AdminLayout({ children }: AdminLayoutProps) {
                                         <Link
                                             href={item.href}
                                             className={`flex items-center gap-3 px-4 py-3 rounded-lg transition-all ${isActive
-                                                    ? 'bg-blue-50 text-blue-700 font-medium shadow-sm'
-                                                    : 'text-gray-700 hover:bg-gray-50'
+                                                ? 'bg-blue-50 text-blue-700 font-medium shadow-sm'
+                                                : 'text-gray-700 hover:bg-gray-50'
                                                 }`}
                                         >
                                             <span className="text-xl">{item.icon}</span>

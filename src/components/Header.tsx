@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { useCart } from '@/context/CartContext';
 
 export default function Header() {
@@ -14,8 +15,14 @@ export default function Header() {
         <div className="flex items-center justify-between h-16">
           {/* Logo và tên thương hiệu */}
           <Link href="/" className="flex items-center space-x-3">
-            <div className="w-10 h-10 bg-white rounded-full flex items-center justify-center">
-              <span className="text-xanh-duongdam font-bold text-xl">VT</span>
+            <div className="relative" style={{ width: '75px', marginTop: '0px' }}>
+              <Image
+                src="/logo-cong-ty.png"
+                alt="Vé Tàu Việt Logo"
+                width={75}
+                height={75}
+                className="object-contain"
+              />
             </div>
             <div className="text-white">
               <h1 className="text-xl font-bold">Vé Tàu Việt</h1>

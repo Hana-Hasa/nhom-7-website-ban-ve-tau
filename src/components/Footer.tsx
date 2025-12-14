@@ -1,6 +1,7 @@
 'use client';
 
 import Link from 'next/link';
+import Image from 'next/image';
 
 export default function Footer() {
   return (
@@ -9,7 +10,18 @@ export default function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
           {/* About */}
           <div>
-            <h3 className="text-xl font-bold mb-4">Vé Tàu Việt</h3>
+            <div className="flex items-center gap-3 mb-4">
+              <div className="relative w-10 h-10">
+                <Image
+                  src="/logo-cong-ty.png"
+                  alt="Vé Tàu Việt Logo"
+                  width={75}
+                  height={75}
+                  className="object-contain"
+                />
+              </div>
+              <h3 className="text-xl font-bold">Vé Tàu Việt</h3>
+            </div>
             <p className="text-sm opacity-90 mb-4">
               Hệ thống bán vé tàu lửa trực tuyến hàng đầu Việt Nam.
               Chúng tôi mang đến trải nghiệm đặt vé tiện lợi, nhanh chóng và an toàn.
