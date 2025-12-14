@@ -1,3 +1,14 @@
+/**
+ * DATA: Order Data - Mock Data Đơn Hàng
+ * 
+ * File này chứa:
+ * - Mock customers: mockCustomers (5 khách hàng mẫu)
+ * - Helper function: generateTickets (tạo vé cho đơn hàng)
+ * - Mock data: initialOrderData (10 đơn hàng mẫu)
+ * 
+ * Mock data dùng để khởi tạo OrderContext nếu chưa có data trong localStorage
+ */
+
 import { Order, Customer, Ticket, OrderStatus, PaymentStatus } from '@/types/train';
 import { initialTrainData } from './trainData';
 

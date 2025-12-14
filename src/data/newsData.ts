@@ -1,3 +1,14 @@
+/**
+ * DATA: News Data - Mock Data Tin Tức
+ * 
+ * File này chứa:
+ * - Types: NewsStatus, NewsArticle
+ * - Mock data: newsArticles (20 bài viết mẫu) với đầy đủ content HTML
+ * - Helper functions: getAllNews, getNewsById, getRelatedNews, getNewsByPage
+ * 
+ * Mock data dùng để khởi tạo NewsContext
+ */
+
 // Mock data for news articles
 export type NewsStatus = 'Nháp' | 'Đã xuất bản' | 'Ẩn';
 

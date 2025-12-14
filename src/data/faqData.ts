@@ -1,3 +1,14 @@
+/**
+ * DATA: FAQ Data - Mock Data Câu Hỏi Thường Gặp
+ * 
+ * File này chứa:
+ * - Interface: FAQIt em
+ * - Mock data: faqData (8 câu hỏi thường gặp)
+ * - Helper functions: getAllFAQs, getFAQsByCategory, getFAQById
+ * 
+ * Dùng cho trang Contact/FAQ
+ */
+
 // FAQ data for contact page
 export interface FAQItem {
     id: number;

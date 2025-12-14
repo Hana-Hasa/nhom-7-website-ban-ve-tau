@@ -1,3 +1,14 @@
+/**
+ * DATA: Train Data - Mock Data Chuyến Tàu
+ * 
+ * File này chứa:
+ * - Helper functions: generateSeats, generateCarriages
+ * - Mock data: initialTrainData (10 chuyến tàu mẫu)
+ * - Constants: stations (danh sách ga), trainTypes (loại tàu)
+ * 
+ * Mock data dùng để khởi tạo TrainContext nếu chưa có data trong localStorage
+ */
+
 import { Train, Carriage, Seat } from '@/types/train';
 
 // Helper function to generate seats for a carriage
