@@ -216,7 +216,7 @@ export default function GioiThieu() {
 
 **Bước 4: Kiểm tra kết quả**
 - Mở trình duyệt
-- Vào địa chỉ: `http://localhost:3000/gioi-thieu`
+- Vào địa chỉ: `http://localhost:3004/gioi-thieu`
 - Bạn sẽ thấy trang mới xuất hiện!
 
 ### 🔗 Thêm link điều hướng vào Header
