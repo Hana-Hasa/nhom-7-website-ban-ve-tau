@@ -697,14 +697,385 @@ discountPercent: 25,         // % giảm giá mới
 
 ---
 
-## 🎓 LỜI KẾT
+## 8. SO SÁNH CÔNG NGHỆ: Kiến thức học vs Dự án thực tế
 
-Tài liệu này cung cấp những kiến thức cơ bản nhất để bạn có thể:
-- ✅ Hiểu cấu trúc dự án
-- ✅ Chạy được website trên máy
-- ✅ Chỉnh sửa màu sắc, hiệu ứng, layout đơn giản
-- ✅ Tạo trang mới
-- ✅ Tự tin trình bày với thầy
+> **Mục đích**: Giúp các bạn hiểu rõ mối liên hệ giữa những gì đã học với những gì đang áp dụng trong dự án, để tự tin trình bày với thầy.
+
+### 📊 Bảng so sánh tổng quan
+
+| Công nghệ đã học | Công nghệ trong dự án | Tỷ lệ áp dụng | Ghi chú |
+|------------------|----------------------|---------------|---------|
+| **React** | React 19 | ✅ 100% | Hoàn toàn khớp! |
+| **Responsive Web Design** | Tailwind CSS (responsive) | ✅ 95% | Áp dụng đầy đủ |
+| **Advanced JavaScript** | TypeScript + Modern JS | ✅ 110% | Nâng cao hơn! |
+| **Bootstrap 3** | Tailwind CSS 4 | 🟡 80% | Framework tương tự |
+| **Sass** | CSS Variables | 🟡 70% | Concept giống nhau |
+| **jQuery** | React (thay thế) | ❌ 0% | Có lý do chính đáng |
+
+### ✅ **1. REACT - ÁP DỤNG HOÀN TOÀN**
+
+#### Kiến thức đã học
+- Component-based architecture (kiến trúc dựa trên component)
+- State management (quản lý trạng thái)
+- Props và composition
+- Lifecycle và Hooks
+
+#### Áp dụng trong dự án
+**✨ Ví dụ cụ thể từ code:**
+
+```tsx
+// File: src/components/Header.tsx
+'use client';
+
+import { useState } from 'react';      // Hook quản lý state
+import { useCart } from '@/context/CartContext';  // Custom Hook
+
+export default function Header() {
+  // State để quản lý menu mobile
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  
+  // Lấy dữ liệu giỏ hàng từ Context
+  const { cartItems } = useCart();
+  
+  return (
+    // JSX - cú pháp của React
+    <header className="bg-xanh-duongdam">
+      {/* Component tái sử dụng */}
+    </header>
+  );
+}
+```
+
+#### Khi trình bày với thầy
+> *"Em có áp dụng React để xây dựng các component như `Header`, `Footer`, `ProductCard`, `Slider`. Ví dụ component `Header` sử dụng `useState` để quản lý menu mobile, và `useContext` để quản lý giỏ hàng toàn cục. React giúp code dễ tái sử dụng và bảo trì."*
+
+---
+
+### ✅ **2. RESPONSIVE WEB DESIGN - ÁP DỤNG HOÀN TOÀN**
+
+#### Kiến thức đã học
+- Mobile-first approach
+- Media queries
+- Flexible layouts (grid, flexbox)
+- Breakpoints cho các màn hình khác nhau
+
+#### Áp dụng trong dự án
+**✨ Ví dụ cụ thể từ code:**
+
+```tsx
+// File: src/components/ProductList.tsx
+<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+  {products.map((product) => (
+    <ProductCard key={product.id} product={product} />
+  ))}
+</div>
+```
+
+**Giải thích:**
+- `grid-cols-1`: Mobile (< 768px) → 1 cột
+- `md:grid-cols-2`: Tablet (≥ 768px) → 2 cột  
+- `lg:grid-cols-4`: Desktop (≥ 1024px) → 4 cột
+
+```css
+/* File: src/app/globals.css - Media queries */
+@media (max-width: 767px) {
+  .product-grid {
+    grid-template-columns: 1fr !important;
+  }
+}
+
+@media (min-width: 768px) and (max-width: 1024px) {
+  .product-grid {
+    grid-template-columns: repeat(2, 1fr) !important;
+  }
+}
+```
+
+#### Khi trình bày với thầy
+> *"Website em làm responsive hoàn toàn, tự động thích ứng với mọi kích thước màn hình từ mobile đến desktop. Em sử dụng Tailwind CSS với các breakpoint như `grid-cols-1 md:grid-cols-2 lg:grid-cols-4` để điều chỉnh layout theo màn hình."*
+
+---
+
+### ✅ **3. ADVANCED JAVASCRIPT - NÂNG CAO HƠN**
+
+#### Kiến thức đã học
+- ES6+ features (Arrow functions, Destructuring, Spread operator)
+- Async/Await
+- Array methods (map, filter, reduce)
+- Modules (import/export)
+
+#### Áp dụng trong dự án
+**✨ TypeScript - JavaScript nâng cao với type safety:**
+
+```typescript
+// File: src/types/index.ts
+// TypeScript: Định nghĩa kiểu dữ liệu rõ ràng
+interface Product {
+  id: number;
+  name: string;
+  route: string;
+  originalPrice: number;
+  discountedPrice?: number;
+  image: string;
+  rating: number;
+}
+```
+
+**✨ Modern JavaScript features:**
+
+```tsx
+// File: src/app/page.tsx
+
+// Arrow Function + Destructuring
+const { cartItems } = useCart();
+
+// Array map method
+{trendingProducts.map((product) => (
+  <ProductCard key={product.id} product={product} />
+))}
+
+// Spread operator
+const updatedCart = [...cartItems, newItem];
+
+// Async/Await (trong Context)
+const fetchProducts = async () => {
+  try {
+    const response = await fetch('/api/products');
+    const data = await response.json();
+    setProducts(data);
+  } catch (error) {
+    console.error(error);
+  }
+}
+```
+
+#### Khi trình bày với thầy
+> *"Em sử dụng TypeScript - một phiên bản nâng cao của JavaScript với type safety, giúp phát hiện lỗi sớm hơn. Dự án áp dụng đầy đủ các tính năng JS hiện đại như Arrow Functions, Destructuring, Async/Await, và Array Methods như map, filter."*
+
+---
+
+### 🟡 **4. BOOTSTRAP → TAILWIND CSS (Framework tương tự)**
+
+#### Kiến thức đã học: Bootstrap 3
+- Grid system (12 columns)
+- Pre-built components (buttons, cards, modals)
+- Utility classes
+- Responsive utilities
+
+#### Dự án sử dụng: Tailwind CSS 4
+- Utility-first approach
+- Customizable
+- Responsive modifiers
+- Modern và linh hoạt hơn
+
+**✨ So sánh cụ thể:**
+
+```html
+<!-- BOOTSTRAP 3 -->
+<div class="container">
+  <div class="row">
+    <div class="col-md-6">
+      <button class="btn btn-primary btn-lg">Đặt vé ngay</button>
+    </div>
+  </div>
+</div>
+
+<!-- TAILWIND CSS (trong dự án) -->
+<div class="container mx-auto px-4">
+  <div class="grid grid-cols-1 md:grid-cols-2">
+    <button class="bg-xanh-duongdam text-white px-6 py-3 rounded-lg hover:bg-opacity-90 transition-all">
+      Đặt vé ngay
+    </button>
+  </div>
+</div>
+```
+
+**Điểm giống nhau:**
+- ✅ Đều là CSS framework
+- ✅ Đều hỗ trợ responsive design
+- ✅ Đều có utility classes
+- ✅ Đều có grid system
+
+**Điểm khác:**
+- Tailwind linh hoạt hơn, có thể tùy chỉnh mọi thứ
+- Bootstrap có sẵn component, Tailwind build từ đầu
+- Tailwind file CSS nhỏ hơn (chỉ build những gì dùng)
+
+#### Khi trình bày với thầy
+> *"Thay vì Bootstrap, em sử dụng Tailwind CSS - một CSS framework hiện đại hơn. Cả hai đều giúp xây dựng giao diện responsive nhanh chóng, nhưng Tailwind linh hoạt hơn với utility-first approach, phù hợp với React và dễ customize theo design riêng."*
+
+---
+
+### 🟡 **5. SASS → CSS VARIABLES (Concept tương tự)**
+
+#### Kiến thức đã học: Sass
+- Variables để quản lý màu sắc, font
+- Nesting (lồng CSS)
+- Mixins (tái sử dụng code)
+- Functions
+
+#### Dự án sử dụng: CSS Variables
+- CSS Variables (Custom Properties)
+- Global theme management
+- Dynamic theming
+
+**✨ So sánh cụ thể:**
+
+```scss
+/* SASS (cách học) */
+$primary-color: #003366;
+$secondary-color: #E6F2FF;
+
+.header {
+  background-color: $primary-color;
+  
+  .nav {
+    color: $secondary-color;
+  }
+}
+```
+
+```css
+/* CSS VARIABLES (trong dự án) */
+/* File: src/app/globals.css */
+:root {
+  --xanh-duongdam: #003366;
+  --xanh-duongnhat: #E6F2FF;
+  --do: #CC0000;
+  --xam: #f5f5f5;
+}
+
+.header {
+  background-color: var(--xanh-duongdam);
+}
+
+.nav {
+  color: var(--xanh-duongnhat);
+}
+```
+
+**Utility classes sử dụng variables:**
+
+```css
+/* File: src/app/globals.css */
+.bg-xanh-duongdam {
+  background-color: var(--xanh-duongdam);
+}
+
+.text-xanh-duongdam {
+  color: var(--xanh-duongdam);
+}
+
+.btn-primary {
+  background-color: var(--xanh-duongdam);
+  color: white;
+  transition: all 0.3s ease;
+}
+```
+
+#### Lợi ích tương tự Sass
+- ✅ Quản lý màu sắc tập trung
+- ✅ Dễ dàng thay đổi theme
+- ✅ Tái sử dụng giá trị
+
+#### Khi trình bày với thầy
+> *"Em áp dụng CSS Variables để quản lý màu sắc theme toàn cục trong file `globals.css`, tương tự như cách Sass dùng variables. Điều này giúp dễ dàng thay đổi màu sắc của toàn bộ website chỉ bằng việc sửa 1 chỗ."*
+
+---
+
+### ❌ **6. JQUERY - KHÔNG DÙNG (React thay thế)**
+
+#### Tại sao không dùng jQuery?
+
+**jQuery (cách cũ):**
+```javascript
+// Thao tác DOM trực tiếp
+$('#menu-toggle').click(function() {
+  $('#menu').toggle();
+  $(this).toggleClass('active');
+});
+
+// AJAX request
+$.ajax({
+  url: '/api/products',
+  method: 'GET',
+  success: function(data) {
+    $('#product-list').html(data);
+  }
+});
+```
+
+**React (cách hiện đại trong dự án):**
+```tsx
+// File: src/components/Header.tsx
+import { useState } from 'react';
+
+export default function Header() {
+  // State-driven UI
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  
+  return (
+    <div>
+      <button onClick={() => setIsMenuOpen(!isMenuOpen)}>
+        Toggle Menu
+      </button>
+      
+      {/* Conditional rendering */}
+      {isMenuOpen && (
+        <nav>Menu content</nav>
+      )}
+    </div>
+  );
+}
+```
+
+**Tại sao React tốt hơn jQuery:**
+1. **Declarative vs Imperative**: React mô tả UI như thế nào, jQuery mô tả làm gì
+2. **Virtual DOM**: React update hiệu quả hơn
+3. **Component-based**: Dễ tái sử dụng và maintain
+4. **State management**: Dữ liệu và UI sync tự động
+
+#### Khi trình bày với thầy
+> *"Dự án không sử dụng jQuery vì React đã thay thế hầu hết chức năng của jQuery một cách hiện đại hơn. React có Virtual DOM và declarative programming, hiệu quả hơn cách thao tác DOM trực tiếp của jQuery. Tuy nhiên em vẫn hiểu nguyên lý DOM manipulation mà jQuery cung cấp."*
+
+---
+
+### 🎯 **TỔNG KẾT ÁP DỤNG KIẾN THỨC**
+
+#### 📊 Biểu đồ áp dụng
+
+```
+React:                    ████████████████████ 100%
+Responsive Design:        ███████████████████░  95%
+Advanced JavaScript:      █████████████████████ 110% (nâng cao hơn!)
+CSS Framework:            ████████████████░░░░  80% (Bootstrap → Tailwind)
+CSS Preprocessor:         ██████████████░░░░░░  70% (Sass → CSS Vars)
+jQuery:                   ░░░░░░░░░░░░░░░░░░░░   0% (React thay thế)
+                        
+```
+
+#### ✨ Điểm mạnh khi trình bày
+
+**1. Công nghệ HIỆN ĐẠI HƠN:**
+- React 19 (mới nhất 2024)
+- TypeScript (JavaScript + Type Safety)
+- Tailwind CSS 4 (CSS framework hiện đại)
+- Next.js 16 (Framework production-ready)
+
+**2. Áp dụng ĐẦY ĐỦ khái niệm cốt lõi:**
+- ✅ Component architecture
+- ✅ Responsive design principles
+- ✅ State management
+- ✅ Modern JavaScript
+- ✅ CSS styling và theming
+
+**3. Có SẢN PHẨM THỰC TẾ để demo:**
+- Website hoạt động hoàn chỉnh
+- Có đầy đủ tính năng thực tế
+- Code được tổ chức rõ ràng
+- Có documentation (tài liệu này)
+
+---
 
 ### 📚 Tài liệu tham khảo thêm
 - [Next.js Documentation](https://nextjs.org/docs)
@@ -721,5 +1092,5 @@ Tài liệu này cung cấp những kiến thức cơ bản nhất để bạn c
 
 **Chúc các bạn học tập và làm việc hiệu quả! 🚀**
 
-> *Tài liệu được tạo bởi Team Leader - Nhóm 7*  
+> *Tài liệu được tạo bởi Team Member - Nhóm 7*  
 > *Cập nhật lần cuối: 14/12/2025*
