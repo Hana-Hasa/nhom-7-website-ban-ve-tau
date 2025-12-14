@@ -1,3 +1,11 @@
+/* ===================================================================
+   PAGE: TRANG TÀI KHOẢN (ACCOUNT PAGE)
+   - Profile sidebar với avatar và thông tin user
+   - Tab navigation (Dashboard, Wishlist, Settings)
+   - Dashboard: Thống kê và đơn hàng gần đây
+   - Wishlist: Danh sách yêu thích
+   - Settings: Cài đặt tài khoản
+   =================================================================== */
 
 'use client';
 
@@ -6,7 +14,7 @@ import Link from 'next/link';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 
-// Mock Data
+// ===== MOCK DATA: THÔNG TIN NGƯỜI DÙNG =====
 const USER_INFO = {
     name: 'Nguyễn Thành Đạt',
     email: 'dat.nguyen@example.com',
@@ -15,23 +23,28 @@ const USER_INFO = {
     points: 1250,
 };
 
+// ===== MOCK DATA: THỐNG KÊ =====
 const STATS = {
-    viewed: 12,
-    purchased: 5,
-    processing: 1,
+    viewed: 12,      // Sản phẩm đã xem
+    purchased: 5,    // Vé đã mua
+    processing: 1,   // Vé đang xử lý
 };
 
+// ===== MOCK DATA: ĐƠN HÀNG GẦN ĐÂY =====
 const RECENT_ORDERS = [
     { id: 'VE-123456', date: '13/12/2025', route: 'Sài Gòn - Hà Nội', amount: 1350000, status: 'Hoàn thành' },
     { id: 'VE-789012', date: '01/12/2025', route: 'Đà Nẵng - Huế', amount: 150000, status: 'Đang xử lý' },
 ];
 
+// ===== MOCK DATA: DANH SÁCH YÊU THÍCH =====
 const WISHLIST = [
     { id: 1, trainId: 'SE1', route: 'Sài Gòn - Hà Nội', time: '06:00', price: 450000, image: '🚆' },
     { id: 2, trainId: 'SPT2', route: 'Sài Gòn - Phan Thiết', time: '06:40', price: 180000, image: '🏖️' },
 ];
 
 export default function AccountPage() {
+    // ===== STATE: TAB NAVIGATION =====
+    // Quản lý tab đang active (dashboard, wishlist, settings)
     const [activeTab, setActiveTab] = useState<'dashboard' | 'wishlist' | 'settings'>('dashboard');
 
     return (
@@ -40,10 +53,14 @@ export default function AccountPage() {
 
             <main className="flex-grow bg-[#E6F2FF] py-8">
                 <div className="container mx-auto px-4 max-w-6xl">
+                    {/* ===== LAYOUT: SIDEBAR + CONTENT ===== */}
                     <div className="flex flex-col md:flex-row gap-8">
-                        {/* Sidebar / Mobile Menu */}
+
+                        {/* ===== SIDEBAR: PROFILE & NAVIGATION ===== */}
                         <div className="w-full md:w-1/4 bg-white rounded-lg shadow-md p-6 h-fit">
+                            {/* User profile info */}
                             <div className="text-center mb-6 pb-6 border-b">
+                                {/* Avatar (initial letter) */}
                                 <div className="w-20 h-20 bg-[#003366] text-white rounded-full flex items-center justify-center text-3xl font-bold mx-auto mb-3">
                                     {USER_INFO.name.charAt(0)}
                                 </div>
@@ -52,54 +69,64 @@ export default function AccountPage() {
                                 <p className="text-xs text-[#CC0000] font-bold mt-1">{USER_INFO.points} điểm</p>
                             </div>
 
+                            {/* Navigation menu */}
                             <nav className="space-y-2">
+                                {/* Tab: Dashboard */}
                                 <button
                                     onClick={() => setActiveTab('dashboard')}
                                     className={`w-full text-left px-4 py-3 rounded-lg transition-colors flex items-center gap-3 ${activeTab === 'dashboard' ? 'bg-[#E6F2FF] text-[#003366] font-bold border-l-4 border-[#003366]' : 'text-gray-600 hover:bg-gray-50'}`}
                                 >
                                     📊 Thống kê & Đơn hàng
                                 </button>
+                                {/* Tab: Wishlist */}
                                 <button
                                     onClick={() => setActiveTab('wishlist')}
                                     className={`w-full text-left px-4 py-3 rounded-lg transition-colors flex items-center gap-3 ${activeTab === 'wishlist' ? 'bg-[#E6F2FF] text-[#003366] font-bold border-l-4 border-[#003366]' : 'text-gray-600 hover:bg-gray-50'}`}
                                 >
                                     ❤️ Danh sách yêu thích
                                 </button>
+                                {/* Tab: Settings */}
                                 <button
                                     onClick={() => setActiveTab('settings')}
                                     className={`w-full text-left px-4 py-3 rounded-lg transition-colors flex items-center gap-3 ${activeTab === 'settings' ? 'bg-[#E6F2FF] text-[#003366] font-bold border-l-4 border-[#003366]' : 'text-gray-600 hover:bg-gray-50'}`}
                                 >
                                     ⚙️ Cài đặt tài khoản
                                 </button>
+                                {/* Logout button */}
                                 <button className="w-full text-left px-4 py-3 rounded-lg text-red-500 hover:bg-red-50 flex items-center gap-3 mt-4 border-t pt-4">
                                     🚪 Đăng xuất
                                 </button>
                             </nav>
                         </div>
 
-                        {/* Main Content */}
+                        {/* ===== MAIN CONTENT AREA (3/4) ===== */}
                         <div className="w-full md:w-3/4 bg-white rounded-lg shadow-md p-6 min-h-[500px]">
+
+                            {/* ===== TAB 1: DASHBOARD ===== */}
                             {activeTab === 'dashboard' && (
                                 <div className="animate-fadeIn">
                                     <h1 className="text-2xl font-bold text-[#003366] mb-6">Tổng quan tài khoản</h1>
 
-                                    {/* Stats Cards */}
+                                    {/* Stats Cards - Grid 3 cột */}
                                     <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
+                                        {/* Card: Đã mua */}
                                         <div className="bg-blue-50 p-4 rounded-lg border border-blue-100">
                                             <h3 className="text-gray-500 text-sm mb-1">Đã mua</h3>
                                             <p className="text-2xl font-bold text-[#003366]">{STATS.purchased} vé</p>
                                         </div>
+                                        {/* Card: Đang xử lý */}
                                         <div className="bg-yellow-50 p-4 rounded-lg border border-yellow-100">
                                             <h3 className="text-gray-500 text-sm mb-1">Đang xử lý</h3>
                                             <p className="text-2xl font-bold text-yellow-600">{STATS.processing} vé</p>
                                         </div>
+                                        {/* Card: Đã xem gần đây */}
                                         <div className="bg-purple-50 p-4 rounded-lg border border-purple-100">
                                             <h3 className="text-gray-500 text-sm mb-1">Đã xem gần đây</h3>
                                             <p className="text-2xl font-bold text-purple-600">{STATS.viewed} sản phẩm</p>
                                         </div>
                                     </div>
 
-                                    {/* Recent Orders */}
+                                    {/* Recent Orders Table */}
                                     <h3 className="font-bold text-[#003366] text-lg mb-4">Đơn hàng gần đây</h3>
                                     <div className="overflow-x-auto">
                                         <table className="w-full text-left border-collapse">
@@ -113,6 +140,7 @@ export default function AccountPage() {
                                                 </tr>
                                             </thead>
                                             <tbody>
+                                                {/* Map qua orders */}
                                                 {RECENT_ORDERS.map(order => (
                                                     <tr key={order.id} className="border-b last:border-0 hover:bg-gray-50">
                                                         <td className="p-3 font-medium text-[#003366]">{order.id}</td>
@@ -120,6 +148,7 @@ export default function AccountPage() {
                                                         <td className="p-3 text-gray-800">{order.route}</td>
                                                         <td className="p-3 font-bold text-[#CC0000]">{order.amount.toLocaleString()}đ</td>
                                                         <td className="p-3">
+                                                            {/* Status badge với màu condition */}
                                                             <span className={`px-2 py-1 rounded-full text-xs font-bold ${order.status === 'Hoàn thành' ? 'bg-green-100 text-green-700' : 'bg-yellow-100 text-yellow-700'
                                                                 }`}>
                                                                 {order.status}
@@ -133,21 +162,26 @@ export default function AccountPage() {
                                 </div>
                             )}
 
+                            {/* ===== TAB 2: WISHLIST ===== */}
                             {activeTab === 'wishlist' && (
                                 <div className="animate-fadeIn">
                                     <h1 className="text-2xl font-bold text-[#003366] mb-6">Danh sách yêu thích ({WISHLIST.length})</h1>
+                                    {/* Grid 2 cột wishlist items */}
                                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                                         {WISHLIST.map(item => (
                                             <div key={item.id} className="border rounded-lg p-4 flex gap-4 hover:shadow-md transition-shadow">
+                                                {/* Icon emoji */}
                                                 <div className="text-4xl bg-gray-100 w-16 h-16 flex items-center justify-center rounded-lg">
                                                     {item.image}
                                                 </div>
+                                                {/* Item info */}
                                                 <div className="flex-1">
                                                     <div className="flex justify-between items-start">
                                                         <div>
                                                             <h3 className="font-bold text-[#003366]">{item.route}</h3>
                                                             <p className="text-xs text-gray-500">Tàu {item.trainId} - {item.time}</p>
                                                         </div>
+                                                        {/* Heart icon */}
                                                         <button className="text-red-500 hover:text-red-700">♥️</button>
                                                     </div>
                                                     <div className="flex justify-between items-end mt-2">
@@ -163,9 +197,11 @@ export default function AccountPage() {
                                 </div>
                             )}
 
+                            {/* ===== TAB 3: SETTINGS ===== */}
                             {activeTab === 'settings' && (
                                 <div className="animate-fadeIn">
                                     <h1 className="text-2xl font-bold text-[#003366] mb-6">Cài đặt tài khoản</h1>
+                                    {/* Settings form */}
                                     <form className="space-y-4 max-w-md">
                                         <div>
                                             <label className="block text-sm font-medium text-gray-700 mb-1">Họ và tên</label>

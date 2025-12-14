@@ -66,7 +66,7 @@ npm run dev
 
 #### Bước 4: Xem website
 - Mở trình duyệt (Chrome, Firefox, Edge...)
-- Vào địa chỉ: `http://localhost:3000`
+- Vào địa chỉ: `http://localhost:3004`
 - Mỗi khi bạn chỉnh sửa code và lưu file, website sẽ tự động cập nhật!
 
 ### 🛑 Dừng chạy website

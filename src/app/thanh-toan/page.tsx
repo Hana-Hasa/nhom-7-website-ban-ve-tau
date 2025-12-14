@@ -1,19 +1,29 @@
+/* ===================================================================
+   PAGE: TRANG THANH TOÁN (CHECKOUT/PAYMENT PAGE)
+   - Form thông tin người đặt vé
+   - Upsell products (sản phẩm mua kèm)
+   - Áp dụng mã khuyến mãi
+   - Phương thức thanh toán (QR Banking)
+   - Tóm tắt đơn hàng với tính tổng tự động
+   - Mobile sticky checkout button
+   =================================================================== */
 
 'use client';
 
 import React, { useState } from 'react';
 import Link from 'next/link';
-import { useRouter } from 'next/navigation';
-import { useCart } from '@/context/CartContext';
+import { useRouter } from 'next/navigation';  // Điều hướng sau khi thanh toán
+import { useCart } from '@/context/CartContext';  // Lấy dữ liệu giỏ hàng
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 
-// Mock Data for Features
+// ===== MOCK DATA: MÃ KHUYẾN MÃI =====
 const PROMOTIONS = [
     { code: 'SUMMER2025', discount: 50000, description: 'Giảm 50k cho hè rực rỡ' },
     { code: 'SV50', discount: 20000, description: 'Giảm 20k cho sinh viên' },
 ];
 
+// ===== MOCK DATA: SẢN PHẨM ĐI KÈM (UPSELL) =====
 const RELATED_PRODUCTS = [
     { id: 'p1', name: 'Bánh mì kẹp thịt', price: 25000, image: '🥖' },
     { id: 'p2', name: 'Nước suối Aquafina', price: 10000, image: '💧' },
@@ -21,28 +31,36 @@ const RELATED_PRODUCTS = [
 ];
 
 export default function PaymentPage() {
+    // ===== CONTEXT & ROUTER =====
     const { cartItems, clearCart, removeFromCart } = useCart();
     const router = useRouter();
+
+    // ===== STATE: FORM DATA =====
     const [formData, setFormData] = useState({
         fullName: '',
         phone: '',
         email: '',
         citizenId: '',
     });
-    const [paymentMethod, setPaymentMethod] = useState('banking');
-    const [isProcessing, setIsProcessing] = useState(false);
 
-    // New Features State
-    const [promoCode, setPromoCode] = useState('');
-    const [appliedDiscount, setAppliedDiscount] = useState(0);
+    // ===== STATE: PAYMENT & FEATURES =====
+    const [paymentMethod, setPaymentMethod] = useState('banking');  // Phương thức thanh toán
+    const [isProcessing, setIsProcessing] = useState(false);        // Trạng thái đang xử lý
+
+    // ===== STATE: PROMO CODE =====
+    const [promoCode, setPromoCode] = useState('');               // Mã nhập vào
+    const [appliedDiscount, setAppliedDiscount] = useState(0);    // Số tiền giảm đang áp dụng
+
+    // ===== STATE: ADDONS (SẢN PHẨM MUA KÈM) =====
     const [selectedAddons, setSelectedAddons] = useState<{ product: typeof RELATED_PRODUCTS[0], quantity: number }[]>([]);
 
-    // Calculate Totals
-    const ticketTotal = cartItems.reduce((sum, item) => sum + item.price, 0);
-    const addonsTotal = selectedAddons.reduce((sum, item) => sum + item.product.price * item.quantity, 0);
-    const subTotal = ticketTotal + addonsTotal;
-    const finalTotal = Math.max(0, subTotal - appliedDiscount);
+    // ===== CALCULATIONS: TÍNH TỔNG TIỀN =====
+    const ticketTotal = cartItems.reduce((sum, item) => sum + item.price, 0);  // Tổng tiền vé
+    const addonsTotal = selectedAddons.reduce((sum, item) => sum + item.product.price * item.quantity, 0);  // Tổng tiền addons
+    const subTotal = ticketTotal + addonsTotal;      // Tạm tính (trước giảm giá)
+    const finalTotal = Math.max(0, subTotal - appliedDiscount);  // Tổng cuối (sau giảm giá, không âm)
 
+    // ===== EMPTY STATE - GIỏ HÀNG TRỐNG =====
     if (cartItems.length === 0 && selectedAddons.length === 0) {
         return (
             <div className="min-h-screen flex flex-col">
@@ -61,17 +79,21 @@ export default function PaymentPage() {
         );
     }
 
+    // ===== HANDLER: CẬP NHẬT FORM INPUT =====
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const { name, value } = e.target;
         setFormData(prev => ({ ...prev, [name]: value }));
     };
 
+    // ===== HANDLER: ÁP DỤNG MÃ KHUYẾN MÃI =====
     const handleApplyPromo = (code: string) => {
+        // Kiểm tra mã trong danh sách PROMOTIONS
         const promo = PROMOTIONS.find(p => p.code === code);
         if (promo) {
             setAppliedDiscount(promo.discount);
             alert(`Áp dụng mã ${code} thành công!`);
         } else if (code === 'KMRIENG123') {
+            // Mã đặc biệt (hard-coded)
             setAppliedDiscount(100000);
             alert('Áp dụng mã khuyến mãi riêng thành công!');
         } else {
@@ -80,21 +102,26 @@ export default function PaymentPage() {
         }
     };
 
+    // ===== HANDLER: THÊM ADDON =====
     const handleAddAddon = (product: typeof RELATED_PRODUCTS[0]) => {
         setSelectedAddons(prev => {
             const existing = prev.find(p => p.product.id === product.id);
             if (existing) {
+                // Nếu đã có: Tăng quantity
                 return prev.map(p => p.product.id === product.id ? { ...p, quantity: p.quantity + 1 } : p);
             }
+            // Nếu chưa có: Thêm mới
             return [...prev, { product, quantity: 1 }];
         });
     };
 
+    // ===== HANDLER: XÓA ADDON =====
     const handleRemoveAddon = (productId: string) => {
         setSelectedAddons(prev => prev.filter(p => p.product.id !== productId));
     };
 
 
+    // ===== HANDLER: SUBMIT FORM =====
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         setIsProcessing(true);
@@ -108,25 +135,29 @@ export default function PaymentPage() {
         router.push('/');
     };
 
+    // ===== MAIN RENDER =====
     return (
         <div className="min-h-screen flex flex-col">
             <Header />
+
             <main className="flex-grow bg-[#E6F2FF] py-8">
                 <div className="container mx-auto px-4 max-w-6xl">
                     <h1 className="text-2xl md:text-3xl font-bold text-[#003366] mb-6 text-center md:text-left">
                         Thanh toán & Đặt vé
                     </h1>
 
+                    {/* ===== FORM GRID: 2 CỘT (FORMS + SUMMARY) ===== */}
                     <form onSubmit={handleSubmit} className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-                        {/* Left Column: Forms */}
+                        {/* ===== LEFT COLUMN: FORMS (2/3) ===== */}
                         <div className="lg:col-span-2 space-y-6">
 
-                            {/* Passenger Info */}
+                            {/* ===== SECTION 1: THÔNG TIN NGƯỜI ĐẶT VÉ ===== */}
                             <div className="bg-white p-6 rounded-lg shadow-md border-t-4 border-[#003366]">
                                 <h2 className="text-xl font-bold text-[#003366] mb-4 flex items-center gap-2">
                                     <span className="bg-[#003366] text-white w-6 h-6 rounded-full flex items-center justify-center text-sm">1</span>
                                     Thông tin người đặt vé
                                 </h2>
+                                {/* Grid 2 cột cho form inputs */}
                                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                                     <div>
                                         <label className="block text-gray-700 text-sm font-bold mb-2">Họ và tên *</label>
@@ -179,12 +210,13 @@ export default function PaymentPage() {
                                 </div>
                             </div>
 
-                            {/* Related Products - UPSell */}
+                            {/* ===== SECTION: UPSELL - SẢN PHẨM MUA KÈM ===== */}
                             <div className="bg-white p-6 rounded-lg shadow-md border-t-4 border-yellow-500">
                                 <h2 className="text-xl font-bold text-[#003366] mb-4 flex items-center gap-2">
                                     <span className="text-xl">🍔</span>
                                     Sản phẩm nên mua kèm
                                 </h2>
+                                {/* Grid 3 cột cho related products */}
                                 <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                                     {RELATED_PRODUCTS.map(product => (
                                         <div key={product.id} className="border rounded-lg p-4 flex flex-col items-center text-center hover:shadow-md transition-shadow">
@@ -203,7 +235,7 @@ export default function PaymentPage() {
                                 </div>
                             </div>
 
-                            {/* Payment Method */}
+                            {/* ===== SECTION 2: PHƯƠNG THỨC THANH TOÁN ===== */}
                             <div className="bg-white p-6 rounded-lg shadow-md border-t-4 border-[#CC0000]">
                                 <h2 className="text-xl font-bold text-[#003366] mb-4 flex items-center gap-2">
                                     <span className="bg-[#CC0000] text-white w-6 h-6 rounded-full flex items-center justify-center text-sm">2</span>
@@ -211,6 +243,7 @@ export default function PaymentPage() {
                                 </h2>
 
                                 <div className="space-y-4">
+                                    {/* Radio option: Chuyển khoản ngân hàng */}
                                     <label className="flex items-center p-4 border rounded-lg cursor-pointer transition-colors bg-[#E6F2FF] border-[#003366]">
                                         <input
                                             type="radio"
@@ -230,15 +263,17 @@ export default function PaymentPage() {
                                         </div>
                                     </label>
 
-                                    {/* Bank Transfer Details */}
+                                    {/* Bank Transfer Details - Hiển nếu chọn banking */}
                                     {paymentMethod === 'banking' && (
                                         <div className="ml-9 p-4 bg-gray-50 rounded-lg border border-dashed border-gray-300 animate-fadeIn">
                                             <p className="text-sm text-gray-600 mb-4">Vui lòng chuyển khoản theo thông tin dưới đây để hoàn tất đặt vé:</p>
                                             <div className="border border-gray-200 bg-white p-4 rounded-md">
                                                 <div className="flex flex-col md:flex-row gap-6 items-center">
+                                                    {/* QR Code placeholder */}
                                                     <div className="w-32 h-32 bg-gray-200 flex items-center justify-center text-xs text-gray-500">
                                                         [QR Code]
                                                     </div>
+                                                    {/* Thông tin ngân hàng */}
                                                     <div className="space-y-2 text-sm">
                                                         <p><span className="text-gray-500 w-24 inline-block">Ngân hàng:</span> <span className="font-bold">Vietcombank</span></p>
                                                         <p><span className="text-gray-500 w-24 inline-block">Số tài khoản:</span> <span className="font-bold text-[#CC0000] text-lg">0123456789</span></p>
@@ -253,12 +288,17 @@ export default function PaymentPage() {
                             </div>
                         </div>
 
-                        {/* Right Column: Order Summary */}
+                        {/* ===== RIGHT COLUMN: ORDER SUMMARY (1/3) =====
+                            - sticky top-24: Dính khi scroll
+                            - Scrollable cart items list với max-height */}
                         <div className="lg:col-span-1">
                             <div className="bg-white p-6 rounded-lg shadow-md sticky top-24">
                                 <h3 className="font-bold text-[#003366] text-lg mb-4 border-b pb-2">Tóm tắt đơn hàng</h3>
 
+                                {/* ===== CART ITEMS & ADDONS LIST =====
+                                    - Scrollable với max-height 60 để không quá dài */}
                                 <div className="space-y-4 mb-6 max-h-60 overflow-y-auto custom-scrollbar pr-2">
+                                    {/* Vé tàu trong giỏ hàng */}
                                     {cartItems.map((item) => (
                                         <div key={item.id} className="flex justify-between items-start text-sm group">
                                             <div>
@@ -267,6 +307,7 @@ export default function PaymentPage() {
                                             </div>
                                             <div className="flex items-center gap-2">
                                                 <span className="font-medium text-[#CC0000]">{item.price.toLocaleString()}đ</span>
+                                                {/* Nút xóa vé */}
                                                 <button
                                                     type="button"
                                                     onClick={() => removeFromCart(item.id)}
@@ -279,7 +320,7 @@ export default function PaymentPage() {
                                             </div>
                                         </div>
                                     ))}
-                                    {/* Addons */}
+                                    {/* Addons (sản phẩm mua kèm) */}
                                     {selectedAddons.map((addon) => (
                                         <div key={addon.product.id} className="flex justify-between items-start text-sm border-t pt-2 border-dashed">
                                             <div>
@@ -287,6 +328,7 @@ export default function PaymentPage() {
                                             </div>
                                             <div className="flex items-center gap-2">
                                                 <span className="font-medium text-gray-600">{(addon.product.price * addon.quantity).toLocaleString()}đ</span>
+                                                {/* Nút xóa addon */}
                                                 <button
                                                     type="button"
                                                     onClick={() => handleRemoveAddon(addon.product.id)}
@@ -299,9 +341,10 @@ export default function PaymentPage() {
                                     ))}
                                 </div>
 
-                                {/* Promotions */}
+                                {/* ===== PROMO CODE SECTION ===== */}
                                 <div className="mb-6 pt-4 border-t border-gray-200">
                                     <h4 className="font-bold text-[#003366] text-sm mb-2">Mã khuyến mãi</h4>
+                                    {/* Input + Apply button */}
                                     <div className="flex gap-2 mb-2">
                                         <input
                                             type="text"
@@ -318,7 +361,7 @@ export default function PaymentPage() {
                                             Áp dụng
                                         </button>
                                     </div>
-                                    {/* Frequent Promos */}
+                                    {/* Quick promo code buttons */}
                                     <div className="flex flex-wrap gap-2">
                                         {PROMOTIONS.map(p => (
                                             <button
@@ -334,22 +377,27 @@ export default function PaymentPage() {
                                     </div>
                                 </div>
 
+                                {/* ===== PRICE SUMMARY & CHECKOUT ===== */}
                                 <div className="pt-4 border-t border-gray-200">
+                                    {/* Tạm tính */}
                                     <div className="flex justify-between items-center mb-2 text-sm">
                                         <span className="text-gray-600">Tạm tính:</span>
                                         <span className="font-bold">{subTotal.toLocaleString()}đ</span>
                                     </div>
+                                    {/* Giảm giá (chỉ hiện khi có) */}
                                     {appliedDiscount > 0 && (
                                         <div className="flex justify-between items-center mb-2 text-sm text-green-600">
                                             <span>Giảm giá:</span>
                                             <span className="font-bold">-{appliedDiscount.toLocaleString()}đ</span>
                                         </div>
                                     )}
+                                    {/* Tổng cộng */}
                                     <div className="flex justify-between items-center mb-6 pt-2 border-t border-dashed">
                                         <span className="text-lg font-bold text-gray-800">Tổng cộng:</span>
                                         <span className="text-2xl font-bold text-[#CC0000]">{finalTotal.toLocaleString()}đ</span>
                                     </div>
 
+                                    {/* Submit button */}
                                     <button
                                         type="submit"
                                         disabled={isProcessing}
@@ -358,6 +406,7 @@ export default function PaymentPage() {
                                         {isProcessing ? 'Đang xử lý...' : 'Hoàn tất đặt vé'}
                                     </button>
 
+                                    {/* Terms text */}
                                     <p className="text-xs text-gray-500 text-center mt-3">
                                         Bằng cách nhấn nút này, bạn đồng ý với các điều khoản của chúng tôi.
                                     </p>
@@ -367,12 +416,17 @@ export default function PaymentPage() {
                     </form>
                 </div>
 
-                {/* Mobile Sticky Button */}
+                {/* ===== MOBILE STICKY CHECKOUT BAR =====
+                    - fixed bottom: Dính ở cuối màn hình
+                    - z-50: Luôn hiển thị trên cùng
+                    - Chỉ hiện trên mobile (md:hidden) */}
                 <div className="md:hidden fixed bottom-0 left-0 right-0 bg-white p-4 border-t shadow-lg z-50">
+                    {/* Tổng tiền */}
                     <div className="flex justify-between items-center mb-2">
                         <span className="text-gray-600">Tổng tiền:</span>
                         <span className="font-bold text-[#CC0000] text-xl">{finalTotal.toLocaleString()}đ</span>
                     </div>
+                    {/* Checkout button */}
                     <button
                         onClick={handleSubmit}
                         disabled={isProcessing}
@@ -381,8 +435,10 @@ export default function PaymentPage() {
                         {isProcessing ? 'Đang xử lý...' : 'Thanh toán ngay'}
                     </button>
                 </div>
+                {/* Spacer để tránh content bị che bởi sticky bar */}
                 <div className="h-24 md:hidden"></div>
             </main>
+
             <Footer />
         </div>
     );
