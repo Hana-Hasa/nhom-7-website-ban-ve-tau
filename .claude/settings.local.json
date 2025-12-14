@@ -1,8 +1,0 @@
-{
-  "permissions": {
-    "allow": [
-      "Bash(taskkill:*)",
-      "Bash(npm run dev)"
-    ]
-  }
-}
