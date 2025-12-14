@@ -17,8 +17,12 @@ export const metadata: Metadata = {
   title: "Vé Tàu Việt - Mua vé tàu lửa trực tuyến",
   description: "Hệ thống bán vé tàu lửa trực tuyến hàng đầu Việt Nam. Đặt vé nhanh chóng, tiện lợi với nhiều ưu đãi hấp dẫn.",
   icons: {
-    icon: '/logo-cong-ty.png',
-    shortcut: '/logo-cong-ty.png',
+    icon: [
+      { url: '/favicon-16x16.png', sizes: '16x16', type: 'image/png' },
+      { url: '/favicon-32x32.png', sizes: '32x32', type: 'image/png' },
+      { url: '/favicon.ico', sizes: 'any' },
+    ],
+    shortcut: '/favicon.ico',
     apple: '/logo-cong-ty.png',
   },
 };
