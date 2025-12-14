@@ -1,3 +1,11 @@
+/**
+ * TRANG QUẢN LÝ KHÁCH HÀNG
+ * Hiển thị danh sách khách hàng với:
+ * - Tính toán stats từ orders: tổng đơn hàng, tổng chi tiêu của từng khách
+ * - Thống kê: tổng KH, KH hoạt động, tổng đơn hàng, doanh thu
+ * - Tìm kiếm và lọc: theo mã/tên/email/SĐT, trạng thái
+ */
+
 'use client';
 
 import { useState, useMemo } from 'react';
@@ -7,28 +15,38 @@ import { Customer } from '@/types/train';
 
 type CustomerStatus = 'Hoạt động' | 'Bị khóa';
 
+// Interface mở rộng Customer với các thống kê
 interface CustomerWithStats extends Customer {
     registeredAt: string;
-    totalOrders: number;
-    totalSpending: number;
+    totalOrders: number; // Tổng số đơn hàng đã đặt
+    totalSpending: number; // Tổng số tiền đã chi tiêu
     status: CustomerStatus;
 }
 
 export default function CustomerListPage() {
+    // Lấy danh sách orders từ context
     const { orders } = useOrderContext();
+
+    // State cho search và filter
     const [searchKeyword, setSearchKeyword] = useState('');
     const [statusFilter, setStatusFilter] = useState<CustomerStatus | ''>('');
 
-    // Calculate customer stats from orders
+    /**
+     * Tính toán thống kê cho từng khách hàng từ danh sách orders
+     * Sử dụng useMemo để tối ưu performance
+     * Map các orders theo customer ID và tính tổng đơn/chi tiêu
+     */
     const customersWithStats = useMemo((): CustomerWithStats[] => {
         const customerMap = new Map<string, CustomerWithStats>();
 
+        // Duyệt qua tất cả orders để tính stats cho từng customer
         orders.forEach(order => {
             const { customer } = order;
             if (!customerMap.has(customer.id)) {
+                // Khởi tạo customer stats lần đầu
                 customerMap.set(customer.id, {
                     ...customer,
-                    registeredAt: '2025-11-01T00:00:00', // Mock
+                    registeredAt: '2025-11-01T00:00:00', // Mock data
                     totalOrders: 0,
                     totalSpending: 0,
                     status: 'Hoạt động' as CustomerStatus,
@@ -37,6 +55,7 @@ export default function CustomerListPage() {
 
             const customerStats = customerMap.get(customer.id)!;
             customerStats.totalOrders += 1;
+            // Chỉ cộng vào totalSpending nếu đã thanh toán
             if (order.paymentStatus === 'Đã thanh toán') {
                 customerStats.totalSpending += order.totalAmount;
             }
@@ -45,7 +64,10 @@ export default function CustomerListPage() {
         return Array.from(customerMap.values());
     }, [orders]);
 
-    // Filter customers
+    /**
+     * Filter khách hàng theo keyword và status
+     * Keyword: tìm trong id, fullName, email, phone
+     */
     const filteredCustomers = customersWithStats.filter(customer => {
         if (searchKeyword) {
             const keyword = searchKeyword.toLowerCase();
@@ -66,10 +88,12 @@ export default function CustomerListPage() {
         return true;
     });
 
+    /** Format giá tiền */
     const formatPrice = (price: number) => {
         return new Intl.NumberFormat('vi-VN').format(price) + ' VND';
     };
 
+    /** Format ngày tháng */
     const formatDate = (dateString: string) => {
         return new Date(dateString).toLocaleDateString('vi-VN');
     };
@@ -216,8 +240,8 @@ export default function CustomerListPage() {
                                         <td className="px-6 py-4 whitespace-nowrap">
                                             <span
                                                 className={`px-3 py-1 rounded-full text-xs font-medium ${customer.status === 'Hoạt động'
-                                                        ? 'bg-green-100 text-green-800'
-                                                        : 'bg-red-100 text-red-800'
+                                                    ? 'bg-green-100 text-green-800'
+                                                    : 'bg-red-100 text-red-800'
                                                     }`}
                                             >
                                                 {customer.status}

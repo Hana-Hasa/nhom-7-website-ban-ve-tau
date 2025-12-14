@@ -1,3 +1,11 @@
+/**
+ * TRANG QUẢN LÝ ĐƠN HÀNG
+ * Hiển thị danh sách đơn hàng với:
+ * - Thống kê: tổng đơn, chờ xử lý, đã xác nhận, hoàn thành, doanh thu
+ * - Tìm kiếm và lọc: theo mã/tên, trạng thái đơn, trạng thái thanh toán, ngày
+ * - Bảng danh sách đơn hàng với link xem chi tiết
+ */
+
 'use client';
 
 import { useState } from 'react';
@@ -7,12 +15,17 @@ import { OrderFilters, OrderStatus, PaymentStatus } from '@/types/train';
 import Toast from '@/components/admin/Toast';
 
 export default function OrderListPage() {
+    // Hook quản lý đơn hàng: danh sách orders, filter, stats, toast
     const { orders, filterOrders, stats, toast } = useOrderManagement();
 
+    // State lưu bộ lọc hiện tại
     const [filters, setFilters] = useState<OrderFilters>({});
 
+    // Danh sách đơn hàng sau khi filter
     const filteredOrders = filterOrders(filters);
 
+    // ====== HELPER FUNCTIONS ======
+    /** Format ngày giờ theo định dạng Việt Nam */
     const formatDateTime = (dateString: string) => {
         const date = new Date(dateString);
         return date.toLocaleString('vi-VN', {
@@ -24,10 +37,12 @@ export default function OrderListPage() {
         });
     };
 
+    /** Format giá tiền */
     const formatPrice = (price: number) => {
         return new Intl.NumberFormat('vi-VN').format(price) + ' VND';
     };
 
+    /** Lấy màu cho badge trạng thái đơn hàng */
     const getOrderStatusColor = (status: OrderStatus) => {
         const colors = {
             'Chờ xử lý': 'bg-yellow-100 text-yellow-800',
@@ -38,6 +53,7 @@ export default function OrderListPage() {
         return colors[status];
     };
 
+    /** Lấy màu cho badge trạng thái thanh toán */
     const getPaymentStatusColor = (status: PaymentStatus) => {
         const colors = {
             'Chưa thanh toán': 'bg-gray-100 text-gray-800',

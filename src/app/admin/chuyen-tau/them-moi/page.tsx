@@ -1,3 +1,11 @@
+/**
+ * TRANG THÊM CHUYẾN TÀU MỚI
+ * Form tạo chuyến tàu mới với validation đầy đủ:
+ * - Mã, tên, ga đi/đến, giờ, loại tàu, số ghế, giá, trạng thái
+ * - Validation: required fields, ga đi khác ga đến, thời gian hợp lệ
+ * - Sau khi tạo thành công, chuyển đến trang chi tiết chuyến tàu mới
+ */
+
 'use client';
 
 import { useState, FormEvent } from 'react';
@@ -9,9 +17,12 @@ import { stations, trainTypes } from '@/data/trainData';
 import Toast from '@/components/admin/Toast';
 
 export default function AddTrainPage() {
+    // ====== HOOKS ======
     const router = useRouter();
     const { addTrain, toast, showToast } = useTrainManagement();
 
+    // ====== STATE MANAGEMENT ======
+    // Form data lưu tất cả thông tin chuyến tàu cần tạo
     const [formData, setFormData] = useState<TrainFormData>({
         code: '',
         name: '',
@@ -25,8 +36,14 @@ export default function AddTrainPage() {
         status: 'Hoạt động',
     });
 
+    // Lưu trữ các lỗi validation cho từng field
     const [errors, setErrors] = useState<Partial<Record<keyof TrainFormData, string>>>({});
 
+    // ====== EVENT HANDLERS ======
+    /**
+     * Xử lý thay đổi giá trị của các field trong form
+     * Tự động xóa lỗi của field khi user bắt đầu nhập
+     */
     const handleChange = (field: keyof TrainFormData, value: string | number) => {
         setFormData((prev) => ({ ...prev, [field]: value }));
         // Clear error when user starts typing
@@ -35,9 +52,15 @@ export default function AddTrainPage() {
         }
     };
 
+    /**
+     * Validate toàn bộ form trước khi submit
+     * Kiểm tra: required fields, ga đi != ga đến, thời gian đến > khởi hành
+     * @returns true nếu hợp lệ, false nếu có lỗi
+     */
     const validate = (): boolean => {
         const newErrors: Partial<Record<keyof TrainFormData, string>> = {};
 
+        // Validate required fields
         if (!formData.code) newErrors.code = 'Mã chuyến tàu là bắt buộc';
         if (!formData.name) newErrors.name = 'Tên chuyến tàu là bắt buộc';
         if (!formData.from) newErrors.from = 'Ga đi là bắt buộc';
@@ -48,10 +71,12 @@ export default function AddTrainPage() {
         if (!formData.totalSeats || formData.totalSeats <= 0) newErrors.totalSeats = 'Số ghế phải lớn hơn 0';
         if (!formData.basePrice || formData.basePrice <= 0) newErrors.basePrice = 'Giá vé phải lớn hơn 0';
 
+        // Validate ga đi và ga đến phải khác nhau
         if (formData.from === formData.to) {
             newErrors.to = 'Ga đến phải khác ga đi';
         }
 
+        // Validate thời gian đến phải sau thời gian khởi hành
         if (formData.departureTime && formData.arrivalTime) {
             if (new Date(formData.departureTime) >= new Date(formData.arrivalTime)) {
                 newErrors.arrivalTime = 'Thời gian đến phải sau thời gian khởi hành';
@@ -62,6 +87,13 @@ export default function AddTrainPage() {
         return Object.keys(newErrors).length === 0;
     };
 
+    /**
+     * Xử lý submit form
+     * - Validate form
+     * - Gọi addTrain từ hook
+     * - Nếu thành công: chuyển đến trang chi tiết chuyến tàu mới tạo
+     * - Nếu lỗi: hiển thị toast error
+     */
     const handleSubmit = (e: FormEvent) => {
         e.preventDefault();
 
@@ -79,6 +111,8 @@ export default function AddTrainPage() {
             showToast(result.message, 'error');
         }
     };
+
+    // ====== RENDER UI ======
 
     return (
         <div className="max-w-4xl">

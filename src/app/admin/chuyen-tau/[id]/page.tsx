@@ -1,3 +1,12 @@
+/**
+ * TRANG CHI TIẾT CHUYẾN TÀU
+ * Hiển thị thông tin chi tiết chuyến tàu với 4 tabs:
+ * - Thông tin cơ bản: mã, tên, ga đi/đến, giờ khởi hành/đến, loại tàu, giá vé, trạng thái
+ * - Toa tàu & Ghế: quản lý sơ đồ ghế, vô hiệu hóa ghế
+ * - Thống kê: tỷ lệ lấp đầy, tổng số toa, số ghế vô hiệu hóa
+ * - Lịch sử: các thay đổi và hoạt động liên quan đến chuyến tàu
+ */
+
 'use client';
 
 import { useState } from 'react';
@@ -10,20 +19,38 @@ import ConfirmDialog from '@/components/admin/ConfirmDialog';
 import Toast from '@/components/admin/Toast';
 
 export default function TrainDetailPage() {
+    // ====== ROUTING & PARAMS ======
     const params = useParams();
     const router = useRouter();
-    const trainId = params?.id as string;
+    const trainId = params?.id as string; // Lấy ID từ URL params
 
+    // ====== HOOKS ======
+    // Hook quản lý chuyến tàu: lấy dữ liệu, xóa, vô hiệu hóa ghế
     const { getTrainById, deleteTrain, disableSeat, toast, showToast } = useTrainManagement();
+
+    // Hook context: lấy lịch sử hoạt động
     const { activityLogs } = useTrainContext();
+
+    // Lấy thông tin chuyến tàu theo ID
     const train = getTrainById(trainId);
 
+    // ====== STATE MANAGEMENT ======
+    // Tab hiện tại đang active (info, carriages, stats, history)
     const [activeTab, setActiveTab] = useState<'info' | 'carriages' | 'stats' | 'history'>('info');
+
+    // Toa tàu đang được chọn để xem sơ đồ ghế
     const [selectedCarriage, setSelectedCarriage] = useState<Carriage | null>(null);
+
+    // Ghế đang được chọn để vô hiệu hóa
     const [seatToDisable, setSeatToDisable] = useState<Seat | null>(null);
+
+    // Lý do vô hiệu hóa ghế
     const [disableReason, setDisableReason] = useState('');
+
+    // Hiển thị dialog xác nhận xóa chuyến tàu
     const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
 
+    // ====== EARLY RETURN - Nếu không tìm thấy chuyến tàu ======
     if (!train) {
         return (
             <div className="text-center py-12">
@@ -35,6 +62,11 @@ export default function TrainDetailPage() {
         );
     }
 
+    // ====== HELPER FUNCTIONS ======
+    /**
+     * Format ngày giờ theo định dạng Việt Nam
+     * VD: 14/12/2024, 18:30
+     */
     const formatDateTime = (dateString: string) => {
         const date = new Date(dateString);
         return date.toLocaleString('vi-VN', {
@@ -46,27 +78,42 @@ export default function TrainDetailPage() {
         });
     };
 
+    /**
+     * Format giá tiền theo định dạng Việt Nam
+     * VD: 500.000 VND
+     */
     const formatPrice = (price: number) => {
         return new Intl.NumberFormat('vi-VN').format(price) + ' VND';
     };
 
+    // ====== EVENT HANDLERS ======
+    /**
+     * Xử lý xóa chuyến tàu
+     * Nếu thành công, chuyển về trang danh sách
+     * Nếu lỗi, hiển thị toast error
+     */
     const handleDelete = () => {
         const result = deleteTrain(trainId);
         if (result.success) {
-            router.push('/admin/chuyen-tau');
+            router.push('/admin/chuyen-tau'); // Quay lại danh sách
         } else {
             showToast(result.message, 'error');
             setShowDeleteConfirm(false);
         }
     };
 
+    /**
+     * Xử lý vô hiệu hóa ghế
+     * Cần có lý do vô hiệu hóa hợp lệ
+     * Sau khi vô hiệu hóa, refresh lại dữ liệu toa tàu
+     */
     const handleDisableSeat = () => {
         if (seatToDisable && selectedCarriage && disableReason.trim()) {
             const result = disableSeat(trainId, selectedCarriage.id, seatToDisable.id, disableReason);
             if (result.success) {
                 setSeatToDisable(null);
                 setDisableReason('');
-                // Refresh carriage data
+                // Refresh carriage data để cập nhật trạng thái ghế
                 const updatedTrain = getTrainById(trainId);
                 if (updatedTrain) {
                     const updatedCarriage = updatedTrain.carriages.find(c => c.id === selectedCarriage.id);
@@ -78,11 +125,14 @@ export default function TrainDetailPage() {
         }
     };
 
+    // Lọc lịch sử hoạt động liên quan đến chuyến tàu này
     const trainLogs = activityLogs.filter(log => log.entityId === trainId || log.entityId.startsWith(trainId));
 
+    // ====== RENDER UI ======
     return (
         <div className="max-w-6xl">
-            {/* Header */}
+            {/* ====== HEADER SECTION ====== */}
+            {/* Breadcrumb, title và các nút action (Sửa, Xóa) */}
             <div className="mb-6">
                 <div className="flex items-center gap-2 text-sm text-gray-600 mb-2">
                     <Link href="/admin/chuyen-tau" className="hover:text-blue-600">
@@ -113,7 +163,8 @@ export default function TrainDetailPage() {
                 </div>
             </div>
 
-            {/* Tabs */}
+            {/* ====== TABS NAVIGATION ====== */}
+            {/* 4 tabs: Thông tin cơ bản, Toa tàu & Ghế, Thống kê, Lịch sử */}
             <div className="border-b border-gray-200 mb-6">
                 <div className="flex gap-6">
                     {[
@@ -126,8 +177,8 @@ export default function TrainDetailPage() {
                             key={tab.key}
                             onClick={() => setActiveTab(tab.key)}
                             className={`flex items-center gap-2 px-4 py-3 border-b-2 transition-colors ${activeTab === tab.key
-                                    ? 'border-blue-600 text-blue-600 font-medium'
-                                    : 'border-transparent text-gray-600 hover:text-gray-900'
+                                ? 'border-blue-600 text-blue-600 font-medium'
+                                : 'border-transparent text-gray-600 hover:text-gray-900'
                                 }`}
                         >
                             <span>{tab.icon}</span>
@@ -137,9 +188,9 @@ export default function TrainDetailPage() {
                 </div>
             </div>
 
-            {/* Tab Content */}
+            {/* ====== TAB CONTENT ====== */}
             <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
-                {/* Thông tin cơ bản */}
+                {/* TAB 1: Thông tin cơ bản - Hiển thị thông tin chi tiết chuyến tàu */}
                 {activeTab === 'info' && (
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                         <div>
@@ -181,8 +232,8 @@ export default function TrainDetailPage() {
                         <div>
                             <h3 className="text-sm font-medium text-gray-500 mb-1">Trạng thái</h3>
                             <span className={`inline-block px-3 py-1 rounded-full text-sm font-medium ${train.status === 'Hoạt động' ? 'bg-green-100 text-green-800' :
-                                    train.status === 'Tạm dừng' ? 'bg-yellow-100 text-yellow-800' :
-                                        'bg-red-100 text-red-800'
+                                train.status === 'Tạm dừng' ? 'bg-yellow-100 text-yellow-800' :
+                                    'bg-red-100 text-red-800'
                                 }`}>
                                 {train.status}
                             </span>
@@ -190,7 +241,7 @@ export default function TrainDetailPage() {
                     </div>
                 )}
 
-                {/* Toa tàu & Ghế */}
+                {/* TAB 2: Toa tàu & Ghế - Quản lý sơ đồ ghế, vô hiệu hóa ghế */}
                 {activeTab === 'carriages' && (
                     <div>
                         {train.carriages.length === 0 ? (
@@ -206,8 +257,8 @@ export default function TrainDetailPage() {
                                             key={carriage.id}
                                             onClick={() => setSelectedCarriage(carriage)}
                                             className={`p-4 border-2 rounded-lg text-left transition-all ${selectedCarriage?.id === carriage.id
-                                                    ? 'border-blue-600 bg-blue-50'
-                                                    : 'border-gray-200 hover:border-blue-300'
+                                                ? 'border-blue-600 bg-blue-50'
+                                                : 'border-gray-200 hover:border-blue-300'
                                                 }`}
                                         >
                                             <div className="font-bold text-lg mb-1">Toa số {carriage.number}</div>
@@ -233,10 +284,10 @@ export default function TrainDetailPage() {
                                                     onClick={() => !seat.isDisabled && setSeatToDisable(seat)}
                                                     disabled={seat.isDisabled}
                                                     className={`p-3 rounded border-2 text-sm font-medium transition-all ${seat.isDisabled
-                                                            ? 'bg-gray-200 border-gray-300 text-gray-500 cursor-not-allowed'
-                                                            : seat.isAvailable
-                                                                ? 'bg-green-50 border-green-300 text-green-800 hover:bg-green-100'
-                                                                : 'bg-red-50 border-red-300 text-red-800'
+                                                        ? 'bg-gray-200 border-gray-300 text-gray-500 cursor-not-allowed'
+                                                        : seat.isAvailable
+                                                            ? 'bg-green-50 border-green-300 text-green-800 hover:bg-green-100'
+                                                            : 'bg-red-50 border-red-300 text-red-800'
                                                         }`}
                                                     title={seat.isDisabled ? `Vô hiệu hóa: ${seat.disabledReason}` : seat.seatNumber}
                                                 >
@@ -266,7 +317,7 @@ export default function TrainDetailPage() {
                     </div>
                 )}
 
-                {/* Thống kê */}
+                {/* TAB 3: Thống kê - Tỷ lệ lấp đầy, số tòa, ghế vô hiệu hóa */}
                 {activeTab === 'stats' && (
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                         <div className="p-6 bg-blue-50 rounded-lg">
@@ -288,7 +339,7 @@ export default function TrainDetailPage() {
                     </div>
                 )}
 
-                {/* Lịch sử */}
+                {/* TAB 4: Lịch sử - Hiển thị các thay đổi và hoạt động */}
                 {activeTab === 'history' && (
                     <div>
                         {trainLogs.length === 0 ? (
@@ -317,7 +368,8 @@ export default function TrainDetailPage() {
                 )}
             </div>
 
-            {/* Disable Seat Dialog */}
+            {/* ====== DISABLE SEAT DIALOG ====== */}
+            {/* Dialog vô hiệu hóa ghế - Nhập lý do vô hiệu hóa */}
             {seatToDisable && (
                 <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
                     <div className="bg-white rounded-lg shadow-xl max-w-md w-full mx-4 p-6">
@@ -356,7 +408,7 @@ export default function TrainDetailPage() {
                 </div>
             )}
 
-            {/* Delete Confirmation */}
+            {/* ====== DELETE CONFIRMATION DIALOG ====== */}
             <ConfirmDialog
                 isOpen={showDeleteConfirm}
                 title="Xác nhận xóa chuyến tàu"
@@ -367,7 +419,7 @@ export default function TrainDetailPage() {
                 type="danger"
             />
 
-            {/* Toast */}
+            {/* ====== TOAST NOTIFICATION ====== */}
             {toast && (
                 <Toast
                     message={toast.message}
