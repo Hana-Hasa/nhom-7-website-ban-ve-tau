@@ -80,18 +80,6 @@ export default function Footer() {
               </div>
             </div>
 
-            {/* Download App */}
-            <div className="mt-6">
-              <p className="text-sm font-semibold mb-3">Tải ứng dụng</p>
-              <div className="space-y-2">
-                <a href="#" className="block">
-                  <img src="/api/placeholder/135/40" alt="App Store" className="h-10 w-auto" />
-                </a>
-                <a href="#" className="block">
-                  <img src="/api/placeholder/135/40" alt="Google Play" className="h-10 w-auto" />
-                </a>
-              </div>
-            </div>
           </div>
         </div>
 
@@ -101,9 +89,6 @@ export default function Footer() {
             <p className="text-sm opacity-90">
               © 2024 Vé Tàu Việt. Tất cả quyền được bảo lưu.
             </p>
-            <div className="flex space-x-6 mt-4 md:mt-0">
-              <img src="/api/placeholder/80/40" alt="Payment methods" className="h-8" />
-            </div>
           </div>
         </div>
       </div>
