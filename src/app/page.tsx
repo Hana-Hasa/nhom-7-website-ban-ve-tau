@@ -1,3 +1,11 @@
+/* ===================================================================
+   PAGE: TRANG CHỦ (HOME PAGE)
+   - Trang landing chính của website
+   - Bao gồm: Hero slider, Search section, 2 Product lists
+   - Mock data cho sản phẩm xu hướng và bán chạy
+   - Layout: Header → Main (Slider + Search + Products) → Footer
+   =================================================================== */
+
 'use client';
 
 import Header from '@/components/Header';
@@ -6,7 +14,8 @@ import Slider from '@/components/Slider';
 import ProductList from '@/components/ProductList';
 import Footer from '@/components/Footer';
 
-// Mock data cho sản phẩm xu hướng
+// ===== MOCK DATA: SẢN PHẨM XU HƯỚNG =====
+// Danh sách các chuyến tàu được quan tâm nhiều
 const trendingProducts = [
   {
     id: 1,
@@ -56,7 +65,8 @@ const trendingProducts = [
   }
 ];
 
-// Mock data cho sản phẩm bán chạy
+// ===== MOCK DATA: SẢN PHẨM BÁN CHẠY =====
+// Danh sách các chuyến tàu được đặt nhiều nhất
 const bestSellingProducts = [
   {
     id: 5,
@@ -84,7 +94,7 @@ const bestSellingProducts = [
   },
   {
     id: 7,
-    name: "Tâu SQN2 - Hà Nội → Quảng Ninh",
+    name: "TâuSQN2 - Hà Nội → Quảng Ninh",
     route: "Ga Hà Nội - Ga Hạ Long",
     originalPrice: 380000,
     image: "/hinh-anh-tau-5.jpg",
@@ -108,29 +118,36 @@ const bestSellingProducts = [
 
 export default function Home() {
   return (
+    // Layout tổng thể: flex column, chiều cao tối thiểu full screen
     <div className="min-h-screen flex flex-col">
+      {/* Header: Thanh điều hướng */}
       <Header />
 
+      {/* Main content area - flex-grow để chiếm hết không gian còn lại */}
       <main className="flex-grow">
-        {/* Hero Slider */}
+
+        {/* ===== HERO SLIDER - BĂNG CHUYỀN KHUYẾN MÃI ===== */}
         <Slider />
 
-        {/* Search Section */}
+        {/* ===== SEARCH SECTION - FORM TÌM KIẾM CHUYẾN TÀU ===== */}
         <SearchSection />
 
-        {/* Sản phẩm xu hướng */}
+        {/* ===== PRODUCT LIST: SẢN PHẨM XU HƯỚNG =====
+            - Hiển thị 4 chuyến tàu đang được quan tâm */}
         <ProductList
           title="Sản phẩm/Dịch vụ xu hướng"
           products={trendingProducts}
         />
 
-        {/* Sản phẩm bán chạy */}
+        {/* ===== PRODUCT LIST: SẢN PHẨM BÁN CHẠY =====
+            - Hiển thị 4 chuyến tàu bán chạy nhất */}
         <ProductList
           title="Sản phẩm/Dịch vụ bán chạy"
           products={bestSellingProducts}
         />
       </main>
 
+      {/* Footer: Chân trang */}
       <Footer />
     </div>
   );
