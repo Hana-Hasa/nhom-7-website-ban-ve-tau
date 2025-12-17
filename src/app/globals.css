@@ -1,15 +1,55 @@
+/* ===================================================================
+   FILE: GLOBALS.CSS - STYLES TOÀN CỤC CHO WEBSITE BÁN VÉ TÀU
+   ===================================================================
+   Mục đích: Định nghĩa các styles chung cho toàn bộ website
+   
+   CẤU TRÚC FILE:
+   1. CSS Variables (Biến màu sắc)
+   2. Utility Classes (Class tiện ích cho màu)
+   3. Product Styles (Hiệu ứng cho sản phẩm)
+   4. Button Styles (Nút bấm)
+   5. Input & Placeholder Styles (Ô nhập liệu)
+   6. Search & Filter Styles (Tìm kiếm và lọc)
+   7. Modal & Popup Styles (Các popup)
+   8. Responsive Styles (Điều chỉnh theo màn hình)
+   9. Animations (Hiệu ứng động)
+   
+   HƯỚNG DẪN CHỈNH SỬA:
+   - Màu sắc: Tìm section 1 (CSS Variables)
+   - Màu placeholder input: Tìm section 5 (Input Styles) - dòng có #22d3ee
+   - Hiệu ứng hover: Tìm section 3-4 (Product/Button Styles)
+   - Responsive breakpoints: Tìm section 8 (Responsive Styles)
+   - Animation: Tìm section 9 (Animations)
+   =================================================================== */
+
+/* Import Tailwind CSS */
 @import "tailwindcss";
 
+/* ===================================================================
+   1. CSS VARIABLES - BIẾN MÀU SẮC VÀ THEME
+   =================================================================== 
+   Để thay đổi màu chủ đạo của website, chỉnh sửa các biến dưới đây
+   =================================================================== */
+
 :root {
+  /* === MÀU NỀN VÀ CHỮ CƠ BẢN === */
   --background: #ffffff;
+  /* Màu nền chính - Trắng */
   --foreground: #171717;
-  /* Màu chủ đạo theo spec */
+  /* Màu chữ chính - Đen */
+
+  /* === MÀU CHỦ ĐẠO THEO BRAND === */
   --xanh-duongdam: #003366;
+  /* Xanh dương đậm - Màu chính của brand */
   --xanh-duongnhat: #E6F2FF;
+  /* Xanh dương nhạt - Màu nền phụ */
   --do: #CC0000;
+  /* Đỏ - Màu cảnh báo, nút nguy hiểm */
   --xam: #f5f5f5;
+  /* Xám nhạt - Màu nền thứ cấp */
 }
 
+/* === THEME CONFIGURATION - CẤU HÌNH TAILWIND === */
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
@@ -17,81 +57,130 @@
   --font-mono: var(--font-geist-mono);
 }
 
+/* === DARK MODE - CHẾ ĐỘ TỐI ===
+   Tự động áp dụng khi hệ điều hành bật chế độ tối */
 @media (prefers-color-scheme: dark) {
   :root {
     --background: #0a0a0a;
+    /* Nền đen */
     --foreground: #ededed;
+    /* Chữ trắng */
   }
 }
 
+/* === BODY - THIẾT LẬP CƠ BẢN === */
 body {
   background: var(--background);
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
 }
 
-/* Utility classes cho màu chủ đạo */
+/* ===================================================================
+   2. UTILITY CLASSES - CLASS TIỆN ÍCH CHO MÀU SẮC
+   ===================================================================
+   Sử dụng các class này để áp dụng màu brand một cách nhất quán
+   Ví dụ: <div className="bg-xanh-duongdam text-white">...</div>
+   =================================================================== */
+
+/* === TEXT COLOR - MÀU CHỮ === */
 .text-xanh-duongdam {
   color: var(--xanh-duongdam);
-}
-
-.bg-xanh-duongdam {
-  background-color: var(--xanh-duongdam);
+  /* Chữ xanh dương đậm */
 }
 
 .text-xanh-duongnhat {
   color: var(--xanh-duongnhat);
-}
-
-.bg-xanh-duongnhat {
-  background-color: var(--xanh-duongnhat);
+  /* Chữ xanh dương nhạt */
 }
 
 .text-do {
   color: var(--do);
+  /* Chữ đỏ - dùng cho cảnh báo */
+}
+
+/* === BACKGROUND COLOR - MÀU NỀN === */
+.bg-xanh-duongdam {
+  background-color: var(--xanh-duongdam);
+  /* Nền xanh dương đậm */
+}
+
+.bg-xanh-duongnhat {
+  background-color: var(--xanh-duongnhat);
+  /* Nền xanh dương nhạt */
 }
 
 .bg-do {
   background-color: var(--do);
+  /* Nền đỏ */
 }
 
 .bg-xam {
   background-color: var(--xam);
+  /* Nền xám nhạt */
 }
 
-/* Hiệu ứng hover cho sản phẩm */
+/* ===================================================================
+   3. PRODUCT STYLES - HIỆU ỨNG CHO HÌNH ẢNH SẢN PHẨM
+   ===================================================================
+   Để thay đổi hiệu ứng hover của hình, chỉnh transform scale
+   =================================================================== */
+
 .product-image {
   transition: transform 0.3s ease;
+  /* Hiệu ứng mượt mà 0.3s */
 }
 
 .product-image:hover {
   transform: scale(1.1);
+  /* Phóng to 110% khi hover */
 }
 
-/* Hiệu ứng cho button */
+/* ===================================================================
+   4. BUTTON STYLES - KIỂU DÁNG NÚT BẤM
+   ===================================================================
+   Để thay đổi màu hoặc hiệu ứng của nút, chỉnh sửa các class dưới đây
+   =================================================================== */
+
+/* === NÚT CHÍNH (PRIMARY) - Màu xanh dương === */
 .btn-primary {
   background-color: var(--xanh-duongdam);
+  /* Nền xanh dương */
   color: white;
+  /* Chữ trắng */
   transition: all 0.3s ease;
+  /* Hiệu ứng mượt */
 }
 
 .btn-primary:hover {
   background-color: #002244;
+  /* Tối hơn khi hover */
   transform: translateY(-2px);
+  /* Nổi lên 2px */
 }
 
+/* === NÚT NGUY HIỂM (DANGER) - Màu đỏ === */
 .btn-danger {
   background-color: var(--do);
+  /* Nền đỏ */
   color: white;
+  /* Chữ trắng */
   transition: all 0.3s ease;
 }
 
 .btn-danger:hover {
   background-color: #AA0000;
+  /* Tối hơn khi hover */
   transform: translateY(-2px);
+  /* Nổi lên 2px */
 }
 
-/* Popup thống kê bình luận */
+/* ===================================================================
+   7. POPUP STYLES - HIỂN THỊ THÔNG TIN
+   ===================================================================
+   Popup bình luận và các popup khác
+   =================================================================== */
+
+/* === POPUP BÌNH LUẬN === */
 .comment-popup {
   position: absolute;
   background: white;
@@ -106,107 +195,162 @@ body {
 
 .comment-popup.show {
   display: block;
+  /* Hiển thị khi có class .show */
 }
 
-/* Search and Filter Styles */
+/* ===================================================================
+   5. INPUT & PLACEHOLDER STYLES - Ô NHẬP LIỆU
+   ===================================================================
+   ĐỂ thay đổi màu placeholder, chỉnh mã màu #22d3ee dưới đây
+   =================================================================== */
+
+/* === FOCUS STATE - TRẠNG THÁI FOCUS === */
 .search-input:focus {
   outline: none;
+  /* Bỏ viền mặc định */
   border-color: var(--xanh-duongdam);
+  /* Viền xanh dương khi focus */
   box-shadow: 0 0 0 3px rgba(0, 51, 102, 0.1);
+  /* Bóng mờ xung quanh */
 }
 
-/* Placeholder Styles - Màu placeholder cho tất cả input */
+/* === PLACEHOLDER COLOR - MÀU PLACEHOLDER ===
+   Thay đổi màu #22d3ee (Cyan 400) thành màu khác nếu muốn:
+   - #9ca3af (Xám nhạt - Subtle)
+   - #60a5fa (Xanh dương - Theo brand)
+   - #003366 (Xanh dương đậm - Theo biến --xanh-duongdam) */
 input::placeholder,
 textarea::placeholder {
   color: #22d3ee;
-  /* Cyan 400 - Màu xanh cyan sáng */
+  /* Màu cyan sáng */
   opacity: 1;
-  /* Đảm bảo opacity 100% trên tất cả browser */
+  /* Đảm bảo 100% opacity */
 }
 
-/* Placeholder khi input được focus */
+/* === PLACEHOLDER KHI FOCUS === */
 input:focus::placeholder,
 textarea:focus::placeholder {
   color: #a5f3fc;
-  /* Cyan 200 - Màu nhạt hơn khi focus */
+  /* Nhạt hơn khi focus */
   opacity: 1;
 }
 
-/* Cross-browser compatibility cho Safari và các trình duyệt cũ */
+/* === CROSS-BROWSER COMPATIBILITY - HỖ TRỢ ĐA TRÌNH DUYỆT ===
+   Các pseudo-element cho Safari, Firefox, IE, Edge cũ */
 input::-webkit-input-placeholder {
+  /* Chrome, Safari, Edge */
   color: #22d3ee;
   opacity: 1;
 }
 
 input::-moz-placeholder {
+  /* Firefox */
   color: #22d3ee;
   opacity: 1;
 }
 
 input:-ms-input-placeholder {
+  /* Internet Explorer 10-11 */
   color: #22d3ee;
   opacity: 1;
 }
 
 input::-ms-input-placeholder {
+  /* Microsoft Edge (Legacy) */
   color: #22d3ee;
   opacity: 1;
 }
 
+/* ===================================================================
+   6. SEARCH & FILTER STYLES - TÌM KIẾM VÀ LỌC
+   =================================================================== */
+
+/* === DROPDOWN GỢI Ý TÌM KIẾM === */
 .suggestions-dropdown {
   position: absolute;
+  /* Đặt trên các element khác */
   top: 100%;
+  /* Dưới input */
   left: 0;
   right: 0;
   background: white;
+  /* Nền trắng */
   border: 1px solid #e5e7eb;
+  /* Viền xám nhạt */
   border-radius: 0.5rem;
+  /* Bo góc 8px */
   box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+  /* Bóng đổ */
   z-index: 50;
+  /* Lớp trên cùng */
   max-height: 240px;
+  /* Chiều cao tối đa */
   overflow-y: auto;
+  /* Scroll khi quá dài */
 }
 
+/* === NÚT TRONG DROPDOWN === */
 .suggestions-dropdown button {
   width: 100%;
+  /* Full width */
   text-align: left;
+  /* Chữ căn trái */
   padding: 0.75rem 1rem;
+  /* Padding 12px 16px */
   border: none;
+  /* Không viền */
   background: transparent;
+  /* Nền trong suốt */
   transition: background-color 0.2s;
+  /* Hiệu ứng mượt */
 }
 
 .suggestions-dropdown button:hover {
   background-color: #f9fafb;
+  /* Xám nhạt khi hover */
 }
 
 .suggestions-dropdown button:focus {
   background-color: #f3f4f6;
+  /* Xám đậm hơn khi focus */
   outline: none;
+  /* Bỏ outline mặc định */
 }
 
+/* === FILTER SIDEBAR - THANH LỌC === */
+/* Checkbox và Radio button */
 .filter-sidebar input[type="checkbox"]:checked,
 .filter-sidebar input[type="radio"]:checked {
   background-color: var(--xanh-duongdam);
+  /* Nền xanh khi checked */
   border-color: var(--xanh-duongdam);
+  /* Viền xanh khi checked */
 }
 
+/* Range slider (Thanh trượt) */
 .filter-sidebar input[type="range"] {
   accent-color: var(--xanh-duongdam);
+  /* Màu chủ đạo */
 }
 
+/* Slider thumb cho Chrome/Safari */
 .filter-sidebar input[type="range"]::-webkit-slider-thumb {
   background-color: var(--xanh-duongdam);
+  /* Màu nút trượt */
   border: 2px solid white;
+  /* Viền trắng */
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  /* Bóng đổ */
 }
 
+/* Slider thumb cho Firefox */
 .filter-sidebar input[type="range"]::-moz-range-thumb {
   background-color: var(--xanh-duongdam);
   border: 2px solid white;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
 
+/* === ACTIVE FILTER BADGE - NHÃN HIỂN BỘ LỌC ĐANG ÁP DỤNG === */
 .active-filter-badge {
   display: inline-flex;
   align-items: center;
@@ -230,18 +374,29 @@ input::-ms-input-placeholder {
 
 .active-filter-badge button:hover {
   color: rgba(0, 51, 102, 0.8);
+  /* Tối h hơn khi hover */
 }
 
+/* === ERROR MESSAGE - THÔNG BÁO LỖI === */
 .error-message {
   background-color: #fef2f2;
+  /* Nền đỏ nhạt */
   border: 1px solid #fecaca;
+  /* Viền đỏ nhạt */
   color: #dc2626;
+  /* Chữ đỏ */
   padding: 0.75rem;
   border-radius: 0.5rem;
   font-size: 0.875rem;
 }
 
-/* Mobile Filter Modal */
+/* ===================================================================
+   8. RESPONSIVE STYLES - ĐIỀU CHỈNH THEO MÀN HÌNH
+   =================================================================== 
+   Thay đổi breakpoints và grid columns ở đây
+   =================================================================== */
+
+/* === MOBILE FILTER MODAL === */
 @media (max-width: 767px) {
   .mobile-filter-modal {
     position: fixed;
@@ -260,6 +415,7 @@ input::-ms-input-placeholder {
 
   .mobile-filter-modal.open {
     transform: translateY(0);
+    /* Hiển thị modal */
   }
 
   .mobile-filter-overlay {
@@ -269,6 +425,7 @@ input::-ms-input-placeholder {
     right: 0;
     bottom: 0;
     background: rgba(0, 0, 0, 0.5);
+    /* Overlay tối */
     z-index: 40;
     display: none;
   }
@@ -278,34 +435,46 @@ input::-ms-input-placeholder {
   }
 }
 
-/* Responsive adjustments */
+/* === GRID LAYOUT RESPONSIVE === */
+/* Mobile: 1 column */
 @media (max-width: 767px) {
   .product-grid {
     grid-template-columns: 1fr !important;
   }
 }
 
+/* Tablet: 2 columns */
 @media (min-width: 768px) and (max-width: 1024px) {
   .product-grid {
     grid-template-columns: repeat(2, 1fr) !important;
   }
 }
 
+/* Desktop: Auto-fit với min 250px */
 @media (min-width: 1025px) {
   .product-grid {
     grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)) !important;
   }
 }
 
-/* Admin Panel Animations */
+/* ===================================================================
+   9. ANIMATIONS - HIỆU ỨNG ĐỘNG
+   ===================================================================
+   Dùng cho admin panel và các hiệu ứng transition
+   Để thay đổi tốc độ animation, chỉnh duration (0.3s, 0.2s...)
+   =================================================================== */
+
+/* === KEYFRAMES DEFINITIONS === */
 @keyframes slideInRight {
   from {
     transform: translateX(100%);
+    /* Từ ngoài bên phải */
     opacity: 0;
   }
 
   to {
     transform: translateX(0);
+    /* Về vị trí ban đầu */
     opacity: 1;
   }
 }
@@ -313,6 +482,7 @@ input::-ms-input-placeholder {
 @keyframes slideUp {
   from {
     transform: translateY(20px);
+    /* Từ dưới lên */
     opacity: 0;
   }
 
@@ -325,13 +495,17 @@ input::-ms-input-placeholder {
 @keyframes fadeIn {
   from {
     opacity: 0;
+    /* Trong suốt */
   }
 
   to {
     opacity: 1;
+    /* Hiện rõ */
   }
 }
 
+/* === ANIMATION UTILITY CLASSES === */
+/* Sử dụng: className="animate-slide-in-right" */
 .animate-slide-in-right {
   animation: slideInRight 0.3s ease-out;
 }
