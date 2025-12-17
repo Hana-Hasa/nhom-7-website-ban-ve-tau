@@ -98,7 +98,7 @@ body {
   border: 1px solid #ddd;
   border-radius: 8px;
   padding: 12px;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
   z-index: 1000;
   display: none;
   min-width: 200px;
@@ -113,6 +113,44 @@ body {
   outline: none;
   border-color: var(--xanh-duongdam);
   box-shadow: 0 0 0 3px rgba(0, 51, 102, 0.1);
+}
+
+/* Placeholder Styles - Màu placeholder cho tất cả input */
+input::placeholder,
+textarea::placeholder {
+  color: #22d3ee;
+  /* Cyan 400 - Màu xanh cyan sáng */
+  opacity: 1;
+  /* Đảm bảo opacity 100% trên tất cả browser */
+}
+
+/* Placeholder khi input được focus */
+input:focus::placeholder,
+textarea:focus::placeholder {
+  color: #a5f3fc;
+  /* Cyan 200 - Màu nhạt hơn khi focus */
+  opacity: 1;
+}
+
+/* Cross-browser compatibility cho Safari và các trình duyệt cũ */
+input::-webkit-input-placeholder {
+  color: #22d3ee;
+  opacity: 1;
+}
+
+input::-moz-placeholder {
+  color: #22d3ee;
+  opacity: 1;
+}
+
+input:-ms-input-placeholder {
+  color: #22d3ee;
+  opacity: 1;
+}
+
+input::-ms-input-placeholder {
+  color: #22d3ee;
+  opacity: 1;
 }
 
 .suggestions-dropdown {
@@ -265,6 +303,7 @@ body {
     transform: translateX(100%);
     opacity: 0;
   }
+
   to {
     transform: translateX(0);
     opacity: 1;
@@ -276,6 +315,7 @@ body {
     transform: translateY(20px);
     opacity: 0;
   }
+
   to {
     transform: translateY(0);
     opacity: 1;
@@ -286,6 +326,7 @@ body {
   from {
     opacity: 0;
   }
+
   to {
     opacity: 1;
   }
