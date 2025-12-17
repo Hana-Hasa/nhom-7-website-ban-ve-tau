@@ -1,5 +1,5 @@
 /* ===================================================================
-   PAGE: TRANG CHỌ N GHẾ (SEAT SELECTION PAGE)
+   PAGE: TRANG CHỌN GHẾ (SEAT SELECTION PAGE)
    - Chọn toa tàu (Coach Selector)
    - Hiển thị sơ đồ ghế (Seat Map)
    - Chọn nhiều ghế, tính tổng tiền

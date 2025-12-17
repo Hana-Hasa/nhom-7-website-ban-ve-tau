@@ -14,17 +14,17 @@ export default function NewsListPage() {
     const [filterStatus, setFilterStatus] = useState<NewsStatus | ''>('');
     const [showDeleteConfirm, setShowDeleteConfirm] = useState<number | null>(null);
 
-    // Get unique categories
+    // Lấy danh mục duy nhất
     const categories = useMemo(() => {
         const cats = Array.from(new Set(news.map(n => n.category)));
         return cats.sort();
     }, [news]);
 
-    // Filter news
+    // Lọc tin tức
     const filteredNews = useMemo(() => {
         let result = [...news];
 
-        // Search
+        // Tìm kiếm
         if (searchKeyword.trim()) {
             const keyword = searchKeyword.toLowerCase();
             result = result.filter(article =>
@@ -35,12 +35,12 @@ export default function NewsListPage() {
             );
         }
 
-        // Filter by category
+        // Lọc theo danh mục
         if (filterCategory) {
             result = result.filter(article => article.category === filterCategory);
         }
 
-        // Filter by status
+        // Lọc theo trạng thái
         if (filterStatus) {
             result = result.filter(article => article.status === filterStatus);
         }
@@ -48,7 +48,7 @@ export default function NewsListPage() {
         return result;
     }, [news, searchKeyword, filterCategory, filterStatus]);
 
-    // Stats
+    //  Thống kê
     const stats = useMemo(() => {
         return {
             total: news.length,
