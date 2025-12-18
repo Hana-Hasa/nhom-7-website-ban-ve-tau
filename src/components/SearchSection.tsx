@@ -201,7 +201,7 @@ export default function SearchSection() {
                         <button
                           key={station}
                           onClick={() => handleFromStationSelect(station)}
-                          className="w-full text-left px-4 py-2 hover:bg-gray-100 transition-colors"
+                          className="w-full text-left px-4 py-2 hover:bg-gray-100 transition-colors text-gray-900"
                         >
                           {/* Icon plus/add */}
                           <svg className="inline-block w-4 h-4 mr-2 text-gray-400" fill="currentColor" viewBox="0 0 20 20">
@@ -254,7 +254,7 @@ export default function SearchSection() {
                         <button
                           key={station}
                           onClick={() => handleToStationSelect(station)}
-                          className="w-full text-left px-4 py-2 hover:bg-gray-100 transition-colors"
+                          className="w-full text-left px-4 py-2 hover:bg-gray-100 transition-colors text-gray-900"
                         >
                           <svg className="inline-block w-4 h-4 mr-2 text-gray-400" fill="currentColor" viewBox="0 0 20 20">
                             <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-11a1 1 0 10-2 0v2H7a1 1 0 100 2h2v2a1 1 0 102 0v-2h2a1 1 0 100-2h-2V7z" clipRule="evenodd" />
