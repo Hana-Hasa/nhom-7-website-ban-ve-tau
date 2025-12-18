@@ -11,10 +11,10 @@ import React from 'react';
 // ===== DATA: DANH SÁCH SẢN PHẨM LIÊN QUAN =====
 // Hardcoded list các sản phẩm bổ sung
 const relatedItems = [
-    { id: 1, name: 'Combo Bánh Mì + Nước Suối', price: 35000, image: 'https://placehold.co/100x100?text=Combo' },
-    { id: 2, name: 'Cà phê sữa đá', price: 20000, image: 'https://placehold.co/100x100?text=Coffee' },
-    { id: 3, name: 'Gối cổ chữ U', price: 45000, image: 'https://placehold.co/100x100?text=Pillow' },
-    { id: 4, name: 'Khăn lạnh (10 cái)', price: 15000, image: 'https://placehold.co/100x100?text=Towel' },
+    { id: 1, name: 'Combo Bánh Mì + Nước Suối', price: 35000, image: '/combo-banh-mi-nuoc-suoi.jpg' },
+    { id: 2, name: 'Cà phê sữa đá', price: 20000, image: '/cafe-sua-da.jfif' },
+    { id: 3, name: 'Gối cổ chữ U', price: 45000, image: '/goi-co-chu-u.jpg' },
+    { id: 4, name: 'Khăn lạnh (10 cái)', price: 15000, image: '/khan-lanh.jpg' },
 ];
 
 const RelatedProducts: React.FC = () => {
