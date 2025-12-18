@@ -93,7 +93,7 @@ export default function Header() {
             <Link href="/tai-khoan" className="flex items-center gap-2 text-white hover:text-xanh-duongnhat transition-colors font-medium">
               {/* Avatar tròn với chữ cái đầu tiên của tên */}
               <div className="w-8 h-8 rounded-full bg-white text-[#003366] flex items-center justify-center font-bold">D</div>
-              <span>Dat Nguyen</span>
+              <span>Huyen Tran</span>
             </Link>
           </nav>
 
