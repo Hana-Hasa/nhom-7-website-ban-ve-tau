@@ -101,7 +101,7 @@ function SearchPageContent() {
               onClick={() => setIsFilterOpen(!isFilterOpen)}
               className="w-full bg-white px-4 py-3 rounded-lg shadow flex items-center justify-between"
             >
-              <span className="font-medium">Bộ lọc</span>
+              <span className="font-medium text-gray-900">Bộ lọc</span>
 
               {/* Badge số lượng filters active */}
               {getActiveFiltersCount() > 0 && (
@@ -144,15 +144,15 @@ function SearchPageContent() {
               {statistics && (
                 <div className="bg-white rounded-lg p-4 mb-4 shadow">
                   <div className="flex flex-wrap items-center justify-between">
-                    <div className="flex flex-wrap gap-4 text-sm">
+                    <div className="flex flex-wrap gap-4 text-sm text-gray-700">
                       <span>
-                        <strong>{statistics.totalRoutes}</strong> chuyến tàu
+                        <strong className="text-gray-900">{statistics.totalRoutes}</strong> chuyến tàu
                       </span>
                       <span>
-                        Giá: <strong>{statistics.minPrice.toLocaleString('vi-VN')}đ</strong> - <strong>{statistics.maxPrice.toLocaleString('vi-VN')}đ</strong>
+                        Giá: <strong className="text-gray-900">{statistics.minPrice.toLocaleString('vi-VN')}đ</strong> - <strong className="text-gray-900">{statistics.maxPrice.toLocaleString('vi-VN')}đ</strong>
                       </span>
                       <span>
-                        Giờ đi: <strong>{statistics.earliestTime}</strong> - <strong>{statistics.latestTime}</strong>
+                        Giờ đi: <strong className="text-gray-900">{statistics.earliestTime}</strong> - <strong className="text-gray-900">{statistics.latestTime}</strong>
                       </span>
                     </div>
                   </div>
@@ -164,11 +164,11 @@ function SearchPageContent() {
               <div className="bg-white rounded-lg p-4 mb-4 shadow flex flex-wrap items-center justify-between gap-4">
                 {/* Dropdown sắp xếp */}
                 <div className="flex items-center gap-4">
-                  <label className="text-sm font-medium">Sắp xếp:</label>
+                  <label className="text-sm font-medium text-gray-900">Sắp xếp:</label>
                   <select
                     value={sortBy}
                     onChange={(e) => setSortBy(e.target.value)}
-                    className="px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-xanh-duongdam focus:border-transparent"
+                    className="px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-xanh-duongdam focus:border-transparent text-gray-900"
                   >
                     {/* Map qua sort options */}
                     {sortOptions.map(option => (
@@ -195,7 +195,7 @@ function SearchPageContent() {
                   - Mỗi badge có nút X để xóa riêng lẻ */}
               {getActiveFiltersCount() > 0 && (
                 <div className="bg-white rounded-lg p-4 mb-4 shadow">
-                  <p className="text-sm font-medium mb-2">Bộ lọc đang áp dụng:</p>
+                  <p className="text-sm font-medium mb-2 text-gray-900">Bộ lọc đang áp dụng:</p>
                   <div className="flex flex-wrap gap-2">
                     {/* Badge ga đi */}
                     {filters.fromStation && (
