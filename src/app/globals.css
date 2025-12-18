@@ -215,49 +215,52 @@ body {
 }
 
 /* === PLACEHOLDER COLOR - MÀU PLACEHOLDER ===
-   Thay đổi màu #22d3ee (Cyan 400) thành màu khác nếu muốn:
-   - #9ca3af (Xám nhạt - Subtle)
-   - #60a5fa (Xanh dương - Theo brand)
+   Màu #666666 được chọn để đạt WCAG AA accessibility (contrast ratio 5.7:1)
+   Đảm bảo dễ đọc trên mọi trình duyệt và thiết bị
+   Các lựa chọn khác:
+   - #757575 (Xám trung bình - 4.6:1 contrast)
+   - #555555 (Xám đậm - 7.4:1 contrast)
    - #003366 (Xanh dương đậm - Theo biến --xanh-duongdam) */
 input::placeholder,
 textarea::placeholder {
-  color: #22d3ee;
-  /* Màu cyan sáng */
+  color: #666666;
+  /* Xám đậm - dễ đọc và đạt chuẩn WCAG AA */
   opacity: 1;
-  /* Đảm bảo 100% opacity */
+  /* Đảm bảo 100% opacity, không bị mờ */
 }
 
 /* === PLACEHOLDER KHI FOCUS === */
 input:focus::placeholder,
 textarea:focus::placeholder {
-  color: #a5f3fc;
-  /* Nhạt hơn khi focus */
-  opacity: 1;
+  color: #888888;
+  /* Xám nhạt hơn một chút khi focus */
+  opacity: 0.7;
+  /* Giảm opacity nhẹ để user biết đã focus */
 }
 
 /* === CROSS-BROWSER COMPATIBILITY - HỖ TRỢ ĐA TRÌNH DUYỆT ===
    Các pseudo-element cho Safari, Firefox, IE, Edge cũ */
 input::-webkit-input-placeholder {
   /* Chrome, Safari, Edge */
-  color: #22d3ee;
+  color: #666666;
   opacity: 1;
 }
 
 input::-moz-placeholder {
   /* Firefox */
-  color: #22d3ee;
+  color: #666666;
   opacity: 1;
 }
 
 input:-ms-input-placeholder {
   /* Internet Explorer 10-11 */
-  color: #22d3ee;
+  color: #666666;
   opacity: 1;
 }
 
 input::-ms-input-placeholder {
   /* Microsoft Edge (Legacy) */
-  color: #22d3ee;
+  color: #666666;
   opacity: 1;
 }
 
