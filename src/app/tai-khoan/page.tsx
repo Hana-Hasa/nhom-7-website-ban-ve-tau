@@ -16,8 +16,8 @@ import Footer from '@/components/Footer';
 
 // ===== MOCK DATA: THÔNG TIN NGƯỜI DÙNG =====
 const USER_INFO = {
-    name: 'Nguyễn Thành Đạt',
-    email: 'dat.nguyen@example.com',
+    name: 'Trần Thị Ngọc Huyền',
+    email: 'huyen.tran@example.com',
     phone: '0912345678',
     memberLevel: 'Thành viên Bạc',
     points: 1250,
