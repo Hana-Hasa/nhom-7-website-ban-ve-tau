@@ -80,25 +80,42 @@ const SeatMap: React.FC<SeatMapProps> = ({ seats, onToggleSeat }) => {
                 - justify-items-center: Căn giữa mỗi item */}
             <div className="grid grid-cols-4 md:grid-cols-6 lg:grid-cols-8 gap-4 justify-items-center">
                 {/* Map qua từng ghế */}
-                {seats.map((seat) => (
-                    /* ===== BUTTON GHẾ =====
-                       - disabled: Không cho click nếu đã đặt
-                       - onClick: Toggle ghế khi click
-                       - title: Tooltip hiện số ghế và giá */
-                    <button
-                        key={seat.id}
-                        disabled={seat.status === 'occupied'}
-                        onClick={() => onToggleSeat(seat.id)}
-                        className={`w-10 h-10 md:w-12 md:h-12 rounded-lg flex items-center justify-center font-bold text-sm border-2 transition-all duration-200 ${getSeatColor(
-                            seat.status,
-                            seat.type
-                        )}`}
-                        title={`Ghế ${seat.number} - ${seat.price.toLocaleString()}đ`}
-                    >
-                        {/* Hiển thị số ghế */}
-                        {seat.number}
-                    </button>
-                ))}
+                {seats.map((seat) => {
+                    // ===== KIỂM TRA GHẾ CÓ PHẢI HÀNG CUỐI KHÔNG =====
+                    // Giả sử có 64 ghế, 8 ghế/hàng
+                    // Hàng cuối là ghế 57-64
+                    const totalSeats = seats.length;
+                    const seatsPerRow = 8;
+                    const lastRowStart = totalSeats - seatsPerRow + 1; // 64 - 8 + 1 = 57
+                    const isLastRow = seat.number >= lastRowStart;
+
+                    return (
+                        /* ===== BUTTON GHẾ =====
+                           - disabled: Không cho click nếu đã đặt
+                           - onClick: Toggle ghế khi click
+                           - title: Tooltip hiện số ghế và giá
+                           - GHẾ ĐÔI: Nếu là hàng cuối, tăng width lên gấp đôi */
+                        <button
+                            key={seat.id}
+                            disabled={seat.status === 'occupied'}
+                            onClick={() => onToggleSeat(seat.id)}
+                            className={`
+                                ${isLastRow
+                                    ? 'w-20 md:w-24 lg:w-28'  // Ghế đôi - rộng gấp đôi cho hàng cuối
+                                    : 'w-10 md:w-12'           // Ghế đơn - kích thước bình thường
+                                }
+                                h-10 md:h-12
+                                rounded-lg flex items-center justify-center font-bold text-sm border-2 transition-all duration-200
+                                ${getSeatColor(seat.status, seat.type)}
+                            `}
+                            title={`${isLastRow ? 'Ghế đôi ' : 'Ghế '}${seat.number} - ${seat.price.toLocaleString()}đ`}
+                        >
+                            {/* Hiển thị số ghế - nếu là ghế đôi thêm icon 👥 */}
+                            {isLastRow && <span className="mr-1">👥</span>}
+                            {seat.number}
+                        </button>
+                    );
+                })}
             </div>
 
             {/* ===== FOOTER: THÔNG TIN SỐ GHẾ TRỐNG =====
