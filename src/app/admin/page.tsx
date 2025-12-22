@@ -4,9 +4,21 @@
  * Hiển thị các module chính và thống kê tổng quan
  */
 
+'use client';
+
 import Link from 'next/link';
+import { useTrainContext } from '@/context/TrainContext';
+import { useOrderContext } from '@/context/OrderContext';
+import { useNews } from '@/context/NewsContext';
 
 export default function AdminHomePage() {
+    // Lấy dữ liệu từ các context để hiển thị thống kê
+    const { trains } = useTrainContext();
+    const { orders } = useOrderContext();
+    const { news } = useNews();
+
+    // Tính số lượng khách hàng unique từ orders
+    const uniqueCustomers = new Set(orders.map(order => order.customer.email)).size;
     // Danh sách các module quản lý chính
     // Mỗi card đại diện cho một module (chuyến tàu, khách hàng, đơn hàng, tin tức)
     const cards = [
@@ -107,25 +119,25 @@ export default function AdminHomePage() {
                 {/* Thống kê Chuyến tàu */}
                 <div className="bg-white p-6 rounded-lg shadow-sm border border-gray-200">
                     <div className="text-sm text-gray-600 mb-1">Tổng chuyến tàu</div>
-                    <div className="text-2xl font-bold text-gray-900">10</div>
+                    <div className="text-2xl font-bold text-gray-900">{trains.length}</div>
                 </div>
 
                 {/* Thống kê Khách hàng */}
                 <div className="bg-white p-6 rounded-lg shadow-sm border border-gray-200">
                     <div className="text-sm text-gray-600 mb-1">Khách hàng</div>
-                    <div className="text-2xl font-bold text-gray-900">-</div>
+                    <div className="text-2xl font-bold text-gray-900">{uniqueCustomers}</div>
                 </div>
 
                 {/* Thống kê Đơn hàng */}
                 <div className="bg-white p-6 rounded-lg shadow-sm border border-gray-200">
                     <div className="text-sm text-gray-600 mb-1">Đơn hàng</div>
-                    <div className="text-2xl font-bold text-gray-900">-</div>
+                    <div className="text-2xl font-bold text-gray-900">{orders.length}</div>
                 </div>
 
                 {/* Thống kê Bài viết */}
                 <div className="bg-white p-6 rounded-lg shadow-sm border border-gray-200">
                     <div className="text-sm text-gray-600 mb-1">Bài viết</div>
-                    <div className="text-2xl font-bold text-gray-900">-</div>
+                    <div className="text-2xl font-bold text-gray-900">{news.length}</div>
                 </div>
             </div>
         </div>
