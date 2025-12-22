@@ -144,7 +144,8 @@ export default function OrderListPage() {
                             // Sắp xếp theo tháng, nếu cùng tháng thì sắp xếp theo ngày
                             return monthA === monthB ? dayA - dayB : monthA - monthB;
                         })
-                        .slice(-10);  // Lấy 10 ngày cuối (mới nhất)
+                        .slice(-10)     // Lấy 10 ngày cuối (mới nhất)
+                        .reverse();     // Đảo ngược để ngày mới nhất ở bên phải
 
                     // ===== BƯỚC 3: TÌM GIÁ TRỊ MAX ĐỂ SCALE BIỂU ĐỒ =====
                     // Tìm doanh thu cao nhất để tính % chiều cao các cột
