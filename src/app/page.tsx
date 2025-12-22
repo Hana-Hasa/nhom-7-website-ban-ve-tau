@@ -13,6 +13,7 @@ import SearchSection from '@/components/SearchSection';
 import Slider from '@/components/Slider';
 import ProductList from '@/components/ProductList';
 import Footer from '@/components/Footer';
+import SnowfallEffect from '@/components/SnowfallEffect';
 
 // ===== MOCK DATA: SẢN PHẨM XU HƯỚNG =====
 // Danh sách các chuyến tàu được quan tâm nhiều
@@ -120,6 +121,9 @@ export default function Home() {
   return (
     // Layout tổng thể: flex column, chiều cao tối thiểu full screen
     <div className="min-h-screen flex flex-col">
+      {/* Hiệu ứng tuyết rơi Noel */}
+      <SnowfallEffect />
+
       {/* Header: Thanh điều hướng */}
       <Header />
 
