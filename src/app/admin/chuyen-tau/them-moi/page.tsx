@@ -276,7 +276,7 @@ export default function AddTrainPage() {
                             onChange={(e) => handleChange('basePrice', parseInt(e.target.value) || 0)}
                             className={`w-full px-4 py-2 border ${errors.basePrice ? 'border-red-500' : 'border-gray-300'} rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent`}
                             placeholder="VD: 800000"
-                            min="1"
+                            min="0"
                             step="1000"
                         />
                         {errors.basePrice && <p className="mt-1 text-sm text-red-500">{errors.basePrice}</p>}
